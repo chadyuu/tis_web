@@ -17,7 +17,7 @@ website:
       - icon: github
         menu:
           - text: Source Code
-            url: https://github.com/chadyuu/tis-web/
+            url: https://github.com/chadyuu/tis_web/
     contents:
       - index.qmd
       - text_retrieval.qmd
