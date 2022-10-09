@@ -1,0 +1,6 @@
+---
+title: "An Introduction to Text Retrieval and Mining"
+author: "Yutaro Nishiyama"
+---
+
+This is a note for the lectures [CS 410 Text Information Systems](https://cs.illinois.edu/academics/courses/cs410).

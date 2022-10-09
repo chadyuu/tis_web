@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>tis_web - Text Retrieval</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">tis_web</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Text Retrieval</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        <div class="sidebar-tools-collapse">
+    <a href="" title="" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-github"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/chadyuu/tis-web/">
+          Source Code
+          </a>
+        </li>
+    </ul>
+</div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">An Introduction to Text Retrieval and Mining</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./text_retrieval.html" class="sidebar-item-text sidebar-link active">Text Retrieval</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#natural-language-content-analysis" id="toc-natural-language-content-analysis" class="nav-link active" data-scroll-target="#natural-language-content-analysis">Natural Language Content Analysis</a>
+  <ul class="collapse">
+  <li><a href="#pos-tagging" id="toc-pos-tagging" class="nav-link" data-scroll-target="#pos-tagging">POS tagging</a></li>
+  </ul></li>
+  <li><a href="#text-access" id="toc-text-access" class="nav-link" data-scroll-target="#text-access">Text Access</a></li>
+  <li><a href="#text-retrieval-problem" id="toc-text-retrieval-problem" class="nav-link" data-scroll-target="#text-retrieval-problem">Text Retrieval Problem</a></li>
+  <li><a href="#text-retrieval-methods" id="toc-text-retrieval-methods" class="nav-link" data-scroll-target="#text-retrieval-methods">Text Retrieval Methods</a></li>
+  <li><a href="#vector-space-model-vsm" id="toc-vector-space-model-vsm" class="nav-link" data-scroll-target="#vector-space-model-vsm">Vector Space Model (VSM)</a>
+  <ul class="collapse">
+  <li><a href="#simplest-vsm" id="toc-simplest-vsm" class="nav-link" data-scroll-target="#simplest-vsm">Simplest VSM</a></li>
+  <li><a href="#vsm-with-tf-idf-weighting" id="toc-vsm-with-tf-idf-weighting" class="nav-link" data-scroll-target="#vsm-with-tf-idf-weighting">VSM with TF-IDF weighting</a></li>
+  <li><a href="#sub-linear-tf-transformation" id="toc-sub-linear-tf-transformation" class="nav-link" data-scroll-target="#sub-linear-tf-transformation">Sub-linear TF Transformation</a></li>
+  <li><a href="#document-length-normalization" id="toc-document-length-normalization" class="nav-link" data-scroll-target="#document-length-normalization">Document Length Normalization</a></li>
+  </ul></li>
+  <li><a href="#system-implementation" id="toc-system-implementation" class="nav-link" data-scroll-target="#system-implementation">System Implementation</a>
+  <ul class="collapse">
+  <li><a href="#the-flow-of-system-process" id="toc-the-flow-of-system-process" class="nav-link" data-scroll-target="#the-flow-of-system-process">The flow of system process</a></li>
+  <li><a href="#zipfs-law" id="toc-zipfs-law" class="nav-link" data-scroll-target="#zipfs-law">Zipf’s Law</a></li>
+  </ul></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a>
+  <ul class="collapse">
+  <li><a href="#what-to-measure" id="toc-what-to-measure" class="nav-link" data-scroll-target="#what-to-measure">What to measure</a></li>
+  <li><a href="#the-cranfield-evaluation-methodology" id="toc-the-cranfield-evaluation-methodology" class="nav-link" data-scroll-target="#the-cranfield-evaluation-methodology">The Cranfield Evaluation Methodology</a></li>
+  <li><a href="#quantify-the-evaluation" id="toc-quantify-the-evaluation" class="nav-link" data-scroll-target="#quantify-the-evaluation">Quantify the evaluation</a></li>
+  </ul></li>
+  <li><a href="#probabilistic-model" id="toc-probabilistic-model" class="nav-link" data-scroll-target="#probabilistic-model">Probabilistic Model</a>
+  <ul class="collapse">
+  <li><a href="#unigram-lm-the-simplest-language-model" id="toc-unigram-lm-the-simplest-language-model" class="nav-link" data-scroll-target="#unigram-lm-the-simplest-language-model">Unigram LM: The Simplest Language Model</a></li>
+  <li><a href="#association-analysis" id="toc-association-analysis" class="nav-link" data-scroll-target="#association-analysis">Association Analysis</a></li>
+  <li><a href="#the-simplest-ranking-criterion" id="toc-the-simplest-ranking-criterion" class="nav-link" data-scroll-target="#the-simplest-ranking-criterion">The simplest ranking criterion</a></li>
+  <li><a href="#the-smoothed-ranking-criterion" id="toc-the-smoothed-ranking-criterion" class="nav-link" data-scroll-target="#the-smoothed-ranking-criterion">The smoothed ranking criterion</a></li>
+  <li><a href="#how-to-determine-p_seenw_id-and-alpha_d" id="toc-how-to-determine-p_seenw_id-and-alpha_d" class="nav-link" data-scroll-target="#how-to-determine-p_seenw_id-and-alpha_d">How to determine <span class="math inline">\(p_{seen}(w_i|d)\)</span> and <span class="math inline">\(\alpha_d\)</span></a></li>
+  </ul></li>
+  <li><a href="#feedback" id="toc-feedback" class="nav-link" data-scroll-target="#feedback">Feedback</a>
+  <ul class="collapse">
+  <li><a href="#rocchio-feedback-for-vsm" id="toc-rocchio-feedback-for-vsm" class="nav-link" data-scroll-target="#rocchio-feedback-for-vsm">Rocchio Feedback for VSM</a></li>
+  <li><a href="#kullback-leibler-kl-divergence-retrieval-model-for-lm" id="toc-kullback-leibler-kl-divergence-retrieval-model-for-lm" class="nav-link" data-scroll-target="#kullback-leibler-kl-divergence-retrieval-model-for-lm">Kullback-Leibler (KL) Divergence Retrieval Model for LM</a></li>
+  </ul></li>
+  <li><a href="#web-search" id="toc-web-search" class="nav-link" data-scroll-target="#web-search">Web Search</a>
+  <ul class="collapse">
+  <li><a href="#challenges" id="toc-challenges" class="nav-link" data-scroll-target="#challenges">Challenges</a></li>
+  <li><a href="#major-crawling-strategies" id="toc-major-crawling-strategies" class="nav-link" data-scroll-target="#major-crawling-strategies">Major Crawling Strategies</a></li>
+  <li><a href="#ranking" id="toc-ranking" class="nav-link" data-scroll-target="#ranking">Ranking</a></li>
+  <li><a href="#exploit-links" id="toc-exploit-links" class="nav-link" data-scroll-target="#exploit-links">Exploit links</a></li>
+  <li><a href="#learning-to-rank" id="toc-learning-to-rank" class="nav-link" data-scroll-target="#learning-to-rank">Learning to rank</a></li>
+  <li><a href="#the-data-user-service-dus-triangle" id="toc-the-data-user-service-dus-triangle" class="nav-link" data-scroll-target="#the-data-user-service-dus-triangle">The Data-User-Service (DUS) Triangle</a></li>
+  </ul></li>
+  <li><a href="#recommendation" id="toc-recommendation" class="nav-link" data-scroll-target="#recommendation">Recommendation</a>
+  <ul class="collapse">
+  <li><a href="#content-based-filtering" id="toc-content-based-filtering" class="nav-link" data-scroll-target="#content-based-filtering">Content-based filtering</a></li>
+  <li><a href="#collaborative-filtering" id="toc-collaborative-filtering" class="nav-link" data-scroll-target="#collaborative-filtering">Collaborative filtering</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Text Retrieval</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="natural-language-content-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="natural-language-content-analysis">Natural Language Content Analysis</h2>
+<section id="pos-tagging" class="level3">
+<h3 class="anchored" data-anchor-id="pos-tagging">POS tagging</h3>
+</section>
+</section>
+<section id="text-access" class="level2">
+<h2 class="anchored" data-anchor-id="text-access">Text Access</h2>
+<ul>
+<li><p>Pull: search engines</p>
+<ul>
+<li><p>Querying</p></li>
+<li><p>Browsing</p></li>
+</ul></li>
+<li><p>Push: recommender systems</p></li>
+</ul>
+</section>
+<section id="text-retrieval-problem" class="level2">
+<h2 class="anchored" data-anchor-id="text-retrieval-problem">Text Retrieval Problem</h2>
+<p>Search engine system returns relevant documents to users from collection of text documents.</p>
+<p>Often called “information retrieval (IR),” but IR is much broader than text retrieval.</p>
+<p>TR is an empirically defined problem and cannot mathematically prove one method to be the best.</p>
+<p>We have two methods, but generally prefer ranking.</p>
+<ul>
+<li><p>Document selection</p>
+<ul>
+<li><p>Return the docs which system decides as relevant (<strong>absolute relevance</strong>)</p></li>
+<li><p>Cons</p>
+<ul>
+<li><p>The classifier can be inaccurate</p>
+<ul>
+<li><p>“Over-constrained” query gets no relevant docs.</p></li>
+<li><p>“Under-constrained” query gets too many docs.</p></li>
+</ul></li>
+<li><p>Cannot see the degree of relevance or cannot prioritize docs</p></li>
+</ul></li>
+</ul></li>
+<li><p>Document ranking</p>
+<ul>
+<li>Return the docs with a relevance measure exceeding a cutoff (<strong>relative relevance</strong>)</li>
+</ul></li>
+</ul>
+</section>
+<section id="text-retrieval-methods" class="level2">
+<h2 class="anchored" data-anchor-id="text-retrieval-methods">Text Retrieval Methods</h2>
+<p>Here are four funcitons to calculate relevance <span class="math inline">\(f(q,d)\)</span>, all of which tend to result in similar ranking functions.</p>
+<ul>
+<li><p>Similarity-based models: <span class="math inline">\(f(q,d) = similarity(q,d)\)</span></p>
+<ul>
+<li>Vector space model</li>
+</ul></li>
+<li><p>Probabilistic model: <span class="math inline">\(f(d,q) = p(R=1|d,q)\)</span></p></li>
+<li><p>Probabilistic inference model: <span class="math inline">\(f(q,d) = p(d \rightarrow q)\)</span></p></li>
+<li><p>Axiomatic model: f(q,d) must satisfy a set of constraints</p></li>
+</ul>
+<p>Three variables:</p>
+<ul>
+<li><p>Term Frequency (TF): <span class="math inline">\(c(term, d)\)</span></p></li>
+<li><p>Document Length: <span class="math inline">\(|d|\)</span></p></li>
+<li><p>Document Frequency (df): <span class="math inline">\(P(term | entire \space collection)\)</span>.</p></li>
+</ul>
+<p>The Best models:</p>
+<ul>
+<li><p>Pivoted length normalization</p></li>
+<li><p>BM25: most popular</p></li>
+<li><p>Query likelihood</p></li>
+<li><p>PL2</p></li>
+</ul>
+</section>
+<section id="vector-space-model-vsm" class="level2">
+<h2 class="anchored" data-anchor-id="vector-space-model-vsm">Vector Space Model (VSM)</h2>
+<p>This model adopts similarity-based model to calculate relevance.</p>
+<ul>
+<li><p>Term</p>
+<ul>
+<li><p>Each term defines one dimension</p></li>
+<li><p>N terms define an N-dimensional space</p></li>
+</ul></li>
+<li><p>Query: <span class="math inline">\(q = (x_1, …, x_N)\)</span> is query term weight.</p></li>
+<li><p>Doc: <span class="math inline">\(d=(y_1,…,y_N)\)</span> is doc term weight.</p></li>
+</ul>
+<section id="simplest-vsm" class="level3">
+<h3 class="anchored" data-anchor-id="simplest-vsm">Simplest VSM</h3>
+<ul>
+<li><p>Dimension</p>
+<ul>
+<li><p>Bag of Words: <span class="math inline">\(V=(w_1,…,w_n)\)</span></p></li>
+<li><p>A text (such as a sentence or a document) is represented as the bag of its words.</p></li>
+<li><p>It focuses on individual words.</p></li>
+<li><p>It discards</p>
+<ul>
+<li><p>phrases by multiple words</p></li>
+<li><p>word ordering</p></li>
+</ul></li>
+</ul></li>
+<li><p>Weight</p>
+<ul>
+<li>Bit Vector: <span class="math inline">\((x_i, y_i) \in {0,1}\)</span> where 0 denotes present, 1 denotes absent.</li>
+</ul></li>
+<li><p>Similarity function</p>
+<ul>
+<li><p>Dot Product: <span class="math inline">\(\sum x_i y_i\)</span></p></li>
+<li><p>This indicates the number of distinct query words matched in d</p></li>
+</ul></li>
+<li><p>Problems</p>
+<ul>
+<li><p>disregard the word counts</p></li>
+<li><p>disregard the importance of words</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="vsm-with-tf-idf-weighting" class="level3">
+<h3 class="anchored" data-anchor-id="vsm-with-tf-idf-weighting">VSM with TF-IDF weighting</h3>
+<p>This combines TF and IDF to address two problems of the simplest VSM.</p>
+<section id="term-frequency-vector" class="level4">
+<h4 class="anchored" data-anchor-id="term-frequency-vector">Term Frequency Vector</h4>
+<p>This incorporates the word counts into weight.</p>
+<ul>
+<li><p><span class="math inline">\(x_i\)</span> = count of word <span class="math inline">\(W_i\)</span> in query <span class="math inline">\(c(W_i,q)\)</span></p></li>
+<li><p><span class="math inline">\(y_i\)</span> = count of word <span class="math inline">\(W_i\)</span> in doc <span class="math inline">\(c(W_i,d)\)</span></p></li>
+</ul>
+</section>
+<section id="inverse-document-frequency" class="level4">
+<h4 class="anchored" data-anchor-id="inverse-document-frequency">Inverse Document Frequency</h4>
+<p>This incorporates the importance of words into weight.</p>
+<ul>
+<li><p><span class="math inline">\(x_i = c(W_i,q)\)</span></p></li>
+<li><p><span class="math inline">\(y_i = c(W_i, d) * IDF(W_i)\)</span> where <span class="math inline">\(IDF(W) = log[\frac{M+1}{df(w)}]\)</span>, M = number of docs, <span class="math inline">\(df(w)\)</span> = number of docs containing W. The larger <span class="math inline">\(df(w)\)</span>, the smaller IDF.</p></li>
+</ul>
+<p>However, term frequency has too much influence on weight.</p>
+</section>
+</section>
+<section id="sub-linear-tf-transformation" class="level3">
+<h3 class="anchored" data-anchor-id="sub-linear-tf-transformation">Sub-linear TF Transformation</h3>
+<p>This aims to cap the influence of TF on weight as follows.</p>
+<p><span class="math display">\[
+y_i = \frac{(k+1)c(w,d)}{c(w,d)+k} &lt; k + 1 (k &gt;= 0)
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+f(q,d) = \sum x_i y_i = \sum c(w,q) \frac{(k+1)c(w,d)}{c(w,d)+k} log{\frac{M+1}{df(w)}}
+\]</span></p>
+</section>
+<section id="document-length-normalization" class="level3">
+<h3 class="anchored" data-anchor-id="document-length-normalization">Document Length Normalization</h3>
+<p>Penalize a long doc as follows.</p>
+<p><span class="math display">\[
+normalizer = 1 -b + b \frac{|d|}{avdl}
+\]</span></p>
+<p>where <span class="math inline">\(avdl\)</span> = average doc length and <span class="math inline">\(b \in [0,1]\)</span>.</p>
+<p>Here are two functions with document length normalization.</p>
+<section id="pivoted-length-normalization-vsm" class="level4">
+<h4 class="anchored" data-anchor-id="pivoted-length-normalization-vsm">Pivoted Length Normalization VSM</h4>
+<p><span class="math display">\[
+f(q,d) = \sum c(w,q) \frac{ln[1 + ln[1 + c(w,d)]]}{1 - b + b \frac{|d|}{avdl}} log \frac{M+1}{df(w)}
+\]</span></p>
+</section>
+<section id="bm25okapi" class="level4">
+<h4 class="anchored" data-anchor-id="bm25okapi">BM25/Okapi</h4>
+<p><span class="math display">\[
+f(q,d) = \sum c(w,q) \frac{(k+1)c(w,d)}{c(w,d) + k(1-b+b\frac{|d|}{avdl})} log \frac{M+1}{df(w)}
+\]</span></p>
+<p>where <span class="math inline">\(b \in [0,1]\)</span> and <span class="math inline">\(k \in [0, + \infty)\)</span>.</p>
+</section>
+</section>
+</section>
+<section id="system-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="system-implementation">System Implementation</h2>
+<section id="the-flow-of-system-process" class="level3">
+<h3 class="anchored" data-anchor-id="the-flow-of-system-process">The flow of system process</h3>
+<ol type="1">
+<li>Tokenization
+<ol type="1">
+<li><p>normalize lexical units</p></li>
+<li><p>stemming: mapping all inflectional forms to the same root form</p></li>
+</ol></li>
+<li>Indexing
+<ol type="1">
+<li><p>Convert documents to data structure</p></li>
+<li><p><strong>Inverted index</strong> is most popular.</p>
+<ol type="1">
+<li><p>It prepares the following two data structures.</p>
+<ol type="1">
+<li><p>Dictionary (lexicon): modest size in memory</p>
+<ol type="1">
+<li><p>Term</p></li>
+<li><p># docs containing the term</p></li>
+<li><p>total freq</p></li>
+</ol></li>
+<li><p>Postings: huge size on disk</p>
+<ol type="1">
+<li><p>Term id</p></li>
+<li><p>Doc id</p></li>
+<li><p>Term freq</p></li>
+<li><p>term position in doc</p></li>
+</ol></li>
+</ol></li>
+<li><p>Construct inverted index by sort-based methods.</p>
+<ol type="1">
+<li><p>Parse docs &amp; Count: (termID, docID, freq) sorted by docID</p></li>
+<li><p>Local sort: (termID, docID, freq) sorted by termID among each document</p></li>
+<li><p>Merge Sort: (termID, docID, freq) sorted by termID and docID among all documents</p></li>
+<li><p>Output invert index file.</p></li>
+</ol></li>
+<li><p>Compress inverted index, exploiting Zipf’s Law</p>
+<ol type="1">
+<li><p>TF compression</p>
+<ol type="1">
+<li>assign fewer bits for frequent terms</li>
+</ol></li>
+<li><p>DocID compression</p>
+<ol type="1">
+<li><p>d-gap: store difference like d1, d2-d1, d3-d2,…</p>
+<ol type="1">
+<li>This is feasible due to sequential access of documents</li>
+</ol></li>
+</ol></li>
+<li><p>Integer compression methods</p>
+<ol type="1">
+<li><p>Binary: equal-length coding</p></li>
+<li><p>Unary: x&gt;=1 is coded as x-1 one bits followed by 0</p>
+<ol type="1">
+<li><p>3 = 110</p></li>
+<li><p>5 = 11110</p></li>
+</ol></li>
+<li><p><span class="math inline">\(\gamma\)</span>-code: x = unary code for <span class="math inline">\(1+ k\)</span> followed by uniform code for <span class="math inline">\(x-2^k\)</span>in <span class="math inline">\(k\)</span> bits where <span class="math inline">\(k = \lfloor log_2 x \rfloor\)</span>.</p>
+<ol type="1">
+<li><p>3 = 101 where <span class="math inline">\(k = 1\)</span></p></li>
+<li><p>5 = 11001 where <span class="math inline">\(k=2\)</span></p></li>
+</ol></li>
+<li><p><span class="math inline">\(\delta\)</span>-code: x = <span class="math inline">\(\gamma\)</span>-code code for <span class="math inline">\(1+ k\)</span> followed by uniform code for <span class="math inline">\(x-2^k\)</span>in <span class="math inline">\(k\)</span> bits where <span class="math inline">\(k = \lfloor log_2 x \rfloor\)</span>.</p>
+<ol type="1">
+<li><p>3 = 1001 where <span class="math inline">\(k_\delta = 1, k_\gamma = 1\)</span></p></li>
+<li><p>5 = 10101 where <span class="math inline">\(k_\delta = 2, k_\gamma = 1\)</span></p></li>
+</ol></li>
+</ol></li>
+</ol></li>
+<li><p>Scoring</p>
+<ol type="1">
+<li><p><span class="math inline">\(f(q,d) = f_a(h(g(t_1,d,q),…,g(t_k,d,q)),f_d(d),f_q(q))\)</span></p></li>
+<li><p><span class="math inline">\(f_a(), f_d(d),f_q(q)\)</span> are final score adjustments.</p></li>
+<li><p><span class="math inline">\(f_d(d),f_q(q)\)</span> are pre-computed.</p></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+</section>
+<section id="zipfs-law" class="level3">
+<h3 class="anchored" data-anchor-id="zipfs-law">Zipf’s Law</h3>
+<p>A few words occur very frequently while most occur rarely.</p>
+<p>Word rank by frequency * frequency <span class="math inline">\(\sim\)</span> constant</p>
+<p><span class="math display">\[
+r(w)^\alpha \times F(w) = C
+\]</span></p>
+<p>where <span class="math inline">\(\alpha \sim 1, C \sim 0.1\)</span>.</p>
+</section>
+</section>
+<section id="evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
+<section id="what-to-measure" class="level3">
+<h3 class="anchored" data-anchor-id="what-to-measure">What to measure</h3>
+<ul>
+<li><p>Effectiveness/Accuracy</p></li>
+<li><p>Efficiency</p></li>
+<li><p>Usability</p></li>
+</ul>
+</section>
+<section id="the-cranfield-evaluation-methodology" class="level3">
+<h3 class="anchored" data-anchor-id="the-cranfield-evaluation-methodology">The Cranfield Evaluation Methodology</h3>
+<ul>
+<li><p>Build reusable test collections &amp; define measures</p>
+<ul>
+<li><p>A sample collection of documents</p></li>
+<li><p>A sample set of queries/topics</p></li>
+<li><p>Relevance judgments by human assessors</p>
+<ul>
+<li>These samples are reusable for different systems.</li>
+</ul></li>
+<li><p>Compare the human judgement with the system output.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="quantify-the-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="quantify-the-evaluation">Quantify the evaluation</h3>
+<ul>
+<li><p>Precision = True Positive / (True Positive +False Positive)</p></li>
+<li><p>Recall= True Positive / (True Positive + False Negative)</p></li>
+<li><p>F-Measure: combine precision and recall</p>
+<ul>
+<li><p><span class="math inline">\(F_\beta = \frac{(\beta^2 + 1)PR}{\beta^2 P+R}\)</span></p></li>
+<li><p><span class="math inline">\(F_1 = \frac{2PR}{P+R}\)</span></p></li>
+<li><p>The higher <span class="math inline">\(\beta\)</span>, the more <strong>recall</strong> affects <span class="math inline">\(F_\beta\)</span>.</p>
+<ul>
+<li><p><span class="math inline">\(F_0 = P\)</span></p></li>
+<li><p><span class="math inline">\(F_\infty = R\)</span></p></li>
+</ul></li>
+</ul></li>
+<li><p>Precision-Recall (PR) curve</p>
+<ul>
+<li><p>Average Precision</p>
+<ul>
+<li><p><span class="math inline">\(AP = \int_{0}^{1} p(r)dr\)</span></p></li>
+<li><p>AP is the area under the precision-recall curve.</p></li>
+<li><p>The average precision at every cutoff where a new relevant document is retrieved, divided by the total number of relevant documents.</p></li>
+</ul></li>
+<li><p>Mean Average Precisions (MAP)</p>
+<ul>
+<li><p>Evaluate the system based on <span class="math inline">\(n\)</span> query results.</p></li>
+<li><p>MAP: arithmetic mean of average precision. <span class="math inline">\(\frac{1}{n} \sum_{i=1}^{n} AP_i\)</span></p></li>
+<li><p>gMAP: geometric mean of average precision. <span class="math inline">\((\Pi_{i=1}^{n} AP_i)^{\frac{1}{n}}\)</span></p></li>
+<li><p>gMAP is more sensitive to low values and a good indicator of how the system performs in the presence of “hard” queries.</p></li>
+</ul></li>
+<li><p>Mean Reciprocal Rank for the case with only one relevant document</p>
+<ul>
+<li>Average Precision = <span class="math inline">\(\frac{1}{r}\)</span> where r is the rank position of the single relevant doc</li>
+</ul></li>
+<li><p>Normalized Discounted Cumulative Gain (nDCG)</p>
+<ul>
+<li><p>Applicable to multi-level judgements</p>
+<ul>
+<li>e.g., 1=non-relevant, 2=marginally relevant, 3=very relevant</li>
+</ul></li>
+<li><p><span class="math inline">\(DCG@10 = \sum_{i=1}^{n} (\frac{G_i}{\log i})\)</span></p>
+<ul>
+<li>You can compare DCG of different systems as long as they evaluate the same query results.</li>
+</ul></li>
+<li><p><span class="math inline">\(IdealDCG@10 = \max(\sum_{i=1}^{n} (\frac{G_i}{\log i}))\)</span></p></li>
+<li><p><span class="math inline">\(nDCG@10 = \frac{DCG@10}{IdealDCG@10}\)</span></p>
+<ul>
+<li>We can compare nDCG among different topic and queries, since nDCG ranges from 0 to 1.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>Statistical Significance Tests</p>
+<ol type="1">
+<li><p>Sign Test</p></li>
+<li><p>Wilcoxon</p></li>
+</ol></li>
+<li><p>Pooling: no need for judging all the documents</p>
+<ol type="1">
+<li><p>Choose a diverse set of ranking methods</p></li>
+<li><p>Obtain top-K documents from each method</p></li>
+<li><p>Combine all the top-K documents to form a pool</p></li>
+<li><p>Human assessors judge the documents in the pool.</p></li>
+<li><p>Compare each method’s score</p></li>
+</ol></li>
+</ul>
+</section>
+</section>
+<section id="probabilistic-model" class="level2">
+<h2 class="anchored" data-anchor-id="probabilistic-model">Probabilistic Model</h2>
+<p><span class="math display">\[
+f(d,q) = p(R=1|d,q)
+\]</span></p>
+<ul>
+<li><p>Classic probabilistic model: BM25</p></li>
+<li><p>Language model: Query Likelihood. <span class="math inline">\(p(R=1|d,q) \sim p(q|d,R=1)\)</span>.</p></li>
+<li><p>Divergence-from-randomness model: PL2</p></li>
+</ul>
+<section id="unigram-lm-the-simplest-language-model" class="level3">
+<h3 class="anchored" data-anchor-id="unigram-lm-the-simplest-language-model">Unigram LM: The Simplest Language Model</h3>
+<ul>
+<li><p>Generate text by generating each word <strong>independently</strong>.</p>
+<ul>
+<li><span class="math inline">\(p(w_1 w_2 … w_n) = p(w_1)p(w_2)…p(w_n)\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(p(w|\theta)=p(w|d) = \frac{c(w,d)}{|d|}\)</span>, where <span class="math inline">\(\theta\)</span> denotes a language model.</p></li>
+</ul>
+</section>
+<section id="association-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="association-analysis">Association Analysis</h3>
+<ul>
+<li><p>Topic LM: <span class="math inline">\(p(w|topic)\)</span></p></li>
+<li><p>Background LM: <span class="math inline">\(p(w|B)\)</span> for words such as the, a, is, we</p></li>
+<li><p>Normalized Topic LM: <span class="math inline">\(\frac{p(w|topic)}{p(w|d)}\)</span></p>
+<ul>
+<li>This reduces the probability of common words and emphasizes the topic words.</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-simplest-ranking-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="the-simplest-ranking-criterion">The simplest ranking criterion</h3>
+<p><span class="math inline">\(f(q,d) = \log p(q|d) = \sum \log p(w_i|d) = \sum c(w,q) \log p(w|d)\)</span> where <span class="math inline">\(p(q|d) = p(w_1|d) \times … \times p(w_n|d)\)</span></p>
+</section>
+<section id="the-smoothed-ranking-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="the-smoothed-ranking-criterion">The smoothed ranking criterion</h3>
+<p>To address <span class="math inline">\(p(w|d) = 0\)</span>, we should smooth the estimate.</p>
+<p><span class="math inline">\(p(w|d) = \begin{cases} p_{seen}(w|d)\\ \alpha_d p(w|C) \end{cases}\)</span> to smooth LM, where <span class="math inline">\(p_{seen}\)</span> is discounted ML estimate and <span class="math inline">\(C\)</span> denotes a collection of language model.</p>
+<p>Then,</p>
+<p><span class="math display">\[
+\log p(q|d) = \sum c(w,q) \log p_{seen}(w|d) + \sum_{c(w,d)=0} c(w,q) \log (\alpha_d p(w|C)) \\
+= \sum_{c(w,d)&gt;0} c(w,q) \log \frac{p_{seen}(w|d)}{\alpha_d p(w|C)} + |q| \log \alpha_d + \sum_{w \in V} c(w,q) \log p(w|C) \\
+= \sum \log \frac{p_{seen}(w_i|d)}{\alpha_d p(w_i|C)} + |q| \log \alpha_d + \sum \log p(w_i|C)
+\]</span></p>
+<p>This implies TF (<span class="math inline">\(p_{seen}(w_i|d)\)</span>) -IDF (<span class="math inline">\(\frac{1}{p(w_i|C)}\)</span>) weighting + Document length normalization(<span class="math inline">\(|q| \log \alpha_d\)</span>).</p>
+<p>As for doc length normalization, we should set smaller <span class="math inline">\(\alpha_d\)</span> long documents because we need less smoothing. In this sense, this term penalizes the long documents.</p>
+<p>We can ignore the last term for ranking since it is the same for all <span class="math inline">\(p(q|d)\)</span>.</p>
+</section>
+<section id="how-to-determine-p_seenw_id-and-alpha_d" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-determine-p_seenw_id-and-alpha_d">How to determine <span class="math inline">\(p_{seen}(w_i|d)\)</span> and <span class="math inline">\(\alpha_d\)</span></h3>
+<p>Here are two popular methods.</p>
+<section id="linear-interpolation-jelinek-mercer-smoothing" class="level4">
+<h4 class="anchored" data-anchor-id="linear-interpolation-jelinek-mercer-smoothing">Linear Interpolation (Jelinek-Mercer) Smoothing</h4>
+<p><span class="math display">\[
+p(w|d) = (1-\lambda) \frac{c(w,d)}{|d|} + \lambda p(w|C) \\
+\alpha_d = \lambda
+\]</span></p>
+<p>where <span class="math inline">\(\lambda \in [0,1]\)</span>.</p>
+<p>Therefore , the ranking function is:</p>
+<p><span class="math display">\[
+f_{JM}(q,d) = \sum c(w,q) \log \frac{p_{seen}(w|d)}{\alpha_d p(w|C)} + |q| \log \alpha_d \\
+= \sum c(w,q) \log[1 + \frac{1-\lambda}{\lambda} \frac{c(w,d)}{|d|p(w|C)}]
+\]</span></p>
+<p>because we can ignore <span class="math inline">\(n \log \lambda\)</span>, which is independent from document.</p>
+<p>So JM smoothing does not incorporate document length normalization.</p>
+</section>
+<section id="dirichlet-prior-bayesian-smoothing" class="level4">
+<h4 class="anchored" data-anchor-id="dirichlet-prior-bayesian-smoothing">Dirichlet Prior (Bayesian) Smoothing</h4>
+<p><span class="math display">\[
+p(w|d) = \frac{|d| \frac{c(w,d)}{|d|} + \mu p(w|C)}{|d| + \mu}\\
+\alpha_d = \frac{\mu}{|d| + \mu}
+\]</span></p>
+<p>where <span class="math inline">\(\mu \in [0, +\infty)\)</span>.</p>
+<p>Therefore, the ranking function is:</p>
+<p><span class="math display">\[
+f_{DIR}(q,d) = \sum c(w,q) \log [1 + \frac{c(w,d)}{\mu p(w|C)}] + |q| \log \frac{\mu}{\mu + |d|}
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="feedback" class="level2">
+<h2 class="anchored" data-anchor-id="feedback">Feedback</h2>
+<p>Here are two ways to obtain feedback.</p>
+<ul>
+<li><p><strong>Relevance Feedback</strong>: users make explicit relevance judgments.</p></li>
+<li><p><strong>Pseudo/Blind/Automatic Feedback</strong>: Top-K results are assumed to be relevant. Least reliable.</p></li>
+<li><p><strong>Implicit Feedback</strong>: User-clicked docs are assumed to be relevant</p></li>
+</ul>
+<p>We can update ranking functions in the following two ways.</p>
+<ul>
+<li><p>Adding new weighted terms</p></li>
+<li><p>Adjusting weights of old terms</p></li>
+</ul>
+<section id="rocchio-feedback-for-vsm" class="level3">
+<h3 class="anchored" data-anchor-id="rocchio-feedback-for-vsm">Rocchio Feedback for VSM</h3>
+<p><span class="math display">\[
+q_{new} = \alpha q_{old} + \frac{\beta}{|D|} \sum_{d_j=rel} d_j - \frac{\gamma}{|D|} \sum_{d_j=non-rel} d_j
+\]</span></p>
+</section>
+<section id="kullback-leibler-kl-divergence-retrieval-model-for-lm" class="level3">
+<h3 class="anchored" data-anchor-id="kullback-leibler-kl-divergence-retrieval-model-for-lm">Kullback-Leibler (KL) Divergence Retrieval Model for LM</h3>
+<p>KL-divergence (cross entropy):</p>
+<p><span class="math display">\[
+f(q,d) = \sum p(w|\hat{\theta}_Q) \log \frac{p_{seen}(w|d)}{\alpha_d p(w|C)} + |q| \log \alpha_d
+\]</span></p>
+<p>KL-divergence retrival model is a generalization of query likelihood.</p>
+<p>Query Likelihood:</p>
+<p><span class="math display">\[
+f(q,d) = \sum c(w,q) \log \frac{p_{seen}(w|d)}{\alpha_d p(w|C)} + |q| \log \alpha_d
+\]</span></p>
+<p><span class="math display">\[
+p(w|\hat{\theta}_Q) = \frac{c(w,Q)}{|Q|}
+\]</span></p>
+<p>Divergence denotes the one between query model <span class="math inline">\(\hat{\theta}_Q\)</span> and document model <span class="math inline">\(p_{seen}(w|d)\)</span>.</p>
+<p>Then, give feedback documents <span class="math inline">\(F={d_1,…,d_n}\)</span>,</p>
+<p><span class="math display">\[
+\log p(F|\theta) = \sum_{i} \sum_{w} c(w, d_i) \log [(1-\lambda)p(w|\theta) + \lambda p(w|C)]
+\]</span></p>
+<p><span class="math display">\[
+\theta_F = \arg \max_{\theta} \log p(F|\theta)
+\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is the noise in feedback documents.</p>
+<p>Finally, we can update <span class="math inline">\(\theta_Q\)</span> as follows.</p>
+<p><span class="math display">\[
+\theta_Q' = (1-\alpha)\theta_Q + \alpha \theta_F
+\]</span></p>
+</section>
+</section>
+<section id="web-search" class="level2">
+<h2 class="anchored" data-anchor-id="web-search">Web Search</h2>
+<section id="challenges" class="level3">
+<h3 class="anchored" data-anchor-id="challenges">Challenges</h3>
+<ul>
+<li><p>Scalability: Parallel indexing &amp; searching</p>
+<ul>
+<li><p>MapReduce: a framework for parallel computation. E.g., Hadoop</p>
+<ul>
+<li><div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.slideshare.net/gothicane/behm-shah-pagerank"><img src="images/paste-7BB10940.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div></li>
+<li><p>Note we call reduce for each distinct key.</p></li>
+</ul></li>
+<li><p><a href="http://static.googleusercontent.com/media/research.google.com/en/us/archive/gfs-sosp2003.pdf">Google File System (GFS)</a>: distributed file system</p>
+<ul>
+<li><p><img src="images/paste-E6BBC8AA.png" class="img-fluid"></p></li>
+<li><p>GFS master</p>
+<ul>
+<li><p>receive messages from client and instruct chunk server</p></li>
+<li><p>Fixed chunk size: 64MB</p></li>
+</ul></li>
+<li><p>GFS chunk server</p>
+<ul>
+<li>send data to client</li>
+</ul></li>
+<li><p>GFS client</p></li>
+</ul></li>
+</ul></li>
+<li><p>Low quality information and spams: Spam detection &amp; Robust ranking</p></li>
+<li><p>Dynamics of the Web</p></li>
+</ul>
+</section>
+<section id="major-crawling-strategies" class="level3">
+<h3 class="anchored" data-anchor-id="major-crawling-strategies">Major Crawling Strategies</h3>
+<ul>
+<li><p>Breadth-First</p></li>
+<li><p>Parallel crawling</p></li>
+<li><p>Focused crawling</p>
+<ul>
+<li><p>target at a subset of pages</p></li>
+<li><p>typically given a query</p></li>
+</ul></li>
+<li><p>Incremental crawling</p>
+<ul>
+<li>Crawl more often for pages frequently updated and accessed.</li>
+</ul></li>
+</ul>
+</section>
+<section id="ranking" class="level3">
+<h3 class="anchored" data-anchor-id="ranking">Ranking</h3>
+<p>We can exploit</p>
+<ul>
+<li><p>clickthroughs for massive implicit feedback</p></li>
+<li><p>links</p></li>
+</ul>
+</section>
+<section id="exploit-links" class="level3">
+<h3 class="anchored" data-anchor-id="exploit-links">Exploit links</h3>
+<section id="anchor-text" class="level4">
+<h4 class="anchored" data-anchor-id="anchor-text">Anchor text</h4>
+<p>It summarizes the linked page.</p>
+</section>
+<section id="pagerank" class="level4">
+<h4 class="anchored" data-anchor-id="pagerank">PageRank</h4>
+<p>It is basically citation counting.</p>
+<p>Random surfing enables to jump randomly:</p>
+<ul>
+<li><p>With probability <span class="math inline">\(\alpha\)</span>, randomly jumping to another page.</p></li>
+<li><p>With probability <span class="math inline">\(1-\alpha\)</span>, randomly picking a link to follow.</p></li>
+</ul>
+<p>The PageRank score <span class="math inline">\(p(d_j)\)</span> is defined as follows.</p>
+<p><span class="math display">\[
+p(d_j) = \sum [\frac{1}{N} \alpha + (1-\alpha) M_{ij}]p(d_i)
+\]</span></p>
+<p>where <span class="math inline">\(M_{ij}\)</span> is the transition matrix between each document, which is very sparse and efficient for calculation. We iterate this calculation until it converges.</p>
+<p>We do not need to normalize <span class="math inline">\(p\)</span> since normalization does not affect ranking.</p>
+</section>
+<section id="hits-hypertext-induced-topic-search" class="level4">
+<h4 class="anchored" data-anchor-id="hits-hypertext-induced-topic-search">HITS (Hypertext-Induced Topic Search)</h4>
+<p>A: Adjacency matrix with adjacent pages 1.</p>
+<p><span class="math inline">\(h(d_i)\)</span>: Hub scores</p>
+<p><span class="math inline">\(a(d_i)\)</span>: Authority scores</p>
+<p>Then iterate the following calculations until converge.</p>
+<p><span class="math display">\[
+h(d_i) = \sum_{d_j \in OUT(d_i)} a(d_j)
+\]</span></p>
+<p><span class="math display">\[
+a(d_i) = \sum_{d_j \in IN(d_i)} h(d_j)
+\]</span></p>
+<p>Here, we should normalize <span class="math inline">\(h\)</span> and <span class="math inline">\(a\)</span> to make them equally influence.</p>
+</section>
+</section>
+<section id="learning-to-rank" class="level3">
+<h3 class="anchored" data-anchor-id="learning-to-rank">Learning to rank</h3>
+<p><span class="math display">\[
+P(R=1|Q,D) = s(X_1(Q,D),...,X_n(Q,D), \lambda)
+\]</span></p>
+<p>where<span class="math inline">\(X_i\)</span> is a feature such as BM25 and PageRank, and <span class="math inline">\(\lambda\)</span> is a set of parameters.</p>
+<section id="regression-based-approach" class="level4">
+<h4 class="anchored" data-anchor-id="regression-based-approach">Regression-Based Approach</h4>
+<p><span class="math display">\[
+\log \frac{P(R=1|Q,D)}{1 - P(R=1|Q,D)} = \beta_0 + \sum \beta_i X_i
+\]</span></p>
+<p>Of course, we can attempt to directly optimize a retrieval measure such as MAP and nDCG, but this is more difficult as an optimization problem while there are many solutions proposed.</p>
+</section>
+</section>
+<section id="the-data-user-service-dus-triangle" class="level3">
+<h3 class="anchored" data-anchor-id="the-data-user-service-dus-triangle">The Data-User-Service (DUS) Triangle</h3>
+<ul>
+<li><p>Data</p>
+<ul>
+<li><p>Web pages</p></li>
+<li><p>News articles</p></li>
+</ul></li>
+<li><p>Users</p>
+<ul>
+<li><p>Lawyers</p></li>
+<li><p>Scientists</p></li>
+</ul></li>
+<li><p>Service</p>
+<ul>
+<li><p>Search</p></li>
+<li><p>Browsing</p></li>
+<li><p>Mining</p></li>
+<li><p>Task support</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="recommendation" class="level2">
+<h2 class="anchored" data-anchor-id="recommendation">Recommendation</h2>
+<p>This is push mode.</p>
+<ul>
+<li><p>Item similarity: content-based filtering</p>
+<ul>
+<li>Recommend X which is similar to what items U likes.</li>
+</ul></li>
+<li><p>User similarity: collaborative filtering</p>
+<ul>
+<li>Recommend X which similar users like.</li>
+</ul></li>
+</ul>
+<section id="content-based-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="content-based-filtering">Content-based filtering</h3>
+<ol type="1">
+<li>Score each doc based on each docs’ features and user interest profile (e.g., a query, ratings of items).</li>
+<li>Deliver only docs over the threshold to users.</li>
+<li>User gives feedback on the linear utility of the delivered docs (e.g., clickthroughs).
+<ol type="1">
+<li>the linear utility such as (3 * #good (clicked) - 2 * #bad (not clicked)).</li>
+</ol></li>
+<li>Update the vector to score docs and threshold to maximize the linear utility.</li>
+</ol>
+<section id="beta-gamma-threshold-learning" class="level4">
+<h4 class="anchored" data-anchor-id="beta-gamma-threshold-learning">Beta-Gamma Threshold Learning</h4>
+<p>The threshold learning has a problem in that we cannot obtain feedback under the threshold.</p>
+<p>To address this issue, we set the threshold <span class="math inline">\(\theta\)</span> heuristically as</p>
+<p><span class="math display">\[
+\theta = \alpha * \theta_{zero} + (1-\alpha)*\theta_{optimal}
+\]</span></p>
+<p>where <span class="math inline">\(\alpha = \beta + (1-\beta)e^{-N*\gamma}\)</span>, N= the number of training examples, <span class="math inline">\(\theta_{zero}\)</span> is threshold 0.</p>
+<p>So <span class="math inline">\(\alpha\)</span> gets smaller as we train with more examples, i.e., less exploration.</p>
+</section>
+</section>
+<section id="collaborative-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="collaborative-filtering">Collaborative filtering</h3>
+<p>This makes filtering decisions for an individual user based on those of other users.</p>
+<ol type="1">
+<li>Given a user u, find similar users {u1,…,um}.
+<ol type="1">
+<li>User similarity can be calculated from their similarity in preferences of items.</li>
+</ol></li>
+<li>Predict u’s preference based on the preferences of {u1,…,um}.</li>
+</ol>
+<p>So this requires large number of user preferences at the beginning, otherwise we encounter a “cold start” problem.</p>
+<p>Given these values,</p>
+<ul>
+<li><p><span class="math inline">\(X_{ij}\)</span>: rating of item <span class="math inline">\(o_j\)</span> by user <span class="math inline">\(u_i\)</span></p></li>
+<li><p><span class="math inline">\(n_i\)</span>: average rating of all items by user <span class="math inline">\(u_i\)</span></p></li>
+<li><p><span class="math inline">\(V_{ij}\)</span>: normalized ratings <span class="math inline">\(X_{ij} - n_i\)</span></p></li>
+<li><p><span class="math inline">\(w(a,i)\)</span>: the similarity between user <span class="math inline">\(u_a\)</span> and <span class="math inline">\(u_i\)</span></p></li>
+</ul>
+<p>we can predict the rating of item <span class="math inline">\(o_j\)</span> by user <span class="math inline">\(u_a\)</span></p>
+<p><span class="math display">\[
+\hat{v}_{aj} = \frac{\sum w(a,i) v_{ij}}{\sum w(a,i)}
+\]</span></p>
+<p><span class="math display">\[
+\hat{x}_{aj} = \hat{v}_{aj} + n_a
+\]</span></p>
+<p>There are several ways to calculate user similarity.</p>
+<p><strong>Pearson correlation coefficient:</strong></p>
+<p><img src="images/paste-5928DED8.png" class="img-fluid"></p>
+<p><strong>Cosine measure:</strong></p>
+<p><img src="images/paste-426F65A2.png" class="img-fluid"></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
