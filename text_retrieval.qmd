@@ -686,7 +686,7 @@ This is push mode.
 
 -   Item similarity: content-based filtering
 
-    -   Recommend X which is similar to what items U likes.
+    -   Recommend X which is similar to items U likes.
 
 -   User similarity: collaborative filtering
 
