@@ -319,7 +319,7 @@ where $\alpha \sim 1, C \sim 0.1$.
 
     -   $F_1 = \frac{2PR}{P+R}$
 
-    -   The higher $\beta$, the more **recall** affects $F_\beta$.
+    -   Recall is considered $\beta$ times as inmportant as precision. I.e., the higher $\beta$, the more **recall** affects $F_\beta$.
 
         -   $F_0 = P$
 
