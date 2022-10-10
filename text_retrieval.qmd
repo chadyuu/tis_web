@@ -719,7 +719,7 @@ $$
 \theta = \alpha * \theta_{zero} + (1-\alpha)*\theta_{optimal}
 $$
 
-where $\alpha = \beta + (1-\beta)e^{-N*\gamma}$, N= the number of training examples, $\theta_{zero}$ is threshold 0.
+where $\alpha = \beta + (1-\beta)e^{-N*\gamma}$, N= the number of training examples, $\theta_{zero}$ is threshold where utility equals 0.
 
 So $\alpha$ gets smaller as we train with more examples, i.e., less exploration.
 
