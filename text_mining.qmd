@@ -278,7 +278,8 @@ Initialize all unknown parameters randomly.
 
 ##### E-step
 
-Probability that w in doc d is generated from topic $\theta_j$:$$
+Probability that w in doc d is generated from topic $\theta_j$:
+$$
 p(Z_{d,w} = j) = \frac{\pi^{(n)}_{d,j} p^{(n)}(w|\theta_j)}{\sum_{j'=1}^k \pi^{(n)}_{d,j'} p^{(n)}(w|\theta_{j'})}
 $$
 
