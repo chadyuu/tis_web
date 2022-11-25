@@ -168,7 +168,7 @@ $$
 
 #### Data
 
-document \$d=x_1 x_2...x\_{\|d\|}\$, $x_i \in V={w_1,…,w_M}$
+document $d=x_1 x_2...x\_{\|d\|}$, $x_i \in V={w_1,…,w_M}$
 
 #### Model
 
