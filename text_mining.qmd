@@ -279,6 +279,7 @@ Initialize all unknown parameters randomly.
 ##### E-step
 
 Probability that w in doc d is generated from topic $\theta_j$:
+
 $$
 p(Z_{d,w} = j) = \frac{\pi^{(n)}_{d,j} p^{(n)}(w|\theta_j)}{\sum_{j'=1}^k \pi^{(n)}_{d,j'} p^{(n)}(w|\theta_{j'})}
 $$
@@ -477,6 +478,71 @@ score(d) = \log \frac{p(\theta_1|d)}{p(\theta_2|d)} \\
 = \log \frac{p(\theta_1) \Pi_{w \in V} p(w|\theta_1)^{c(w,d)}}{p(\theta_2) \Pi_{w \in V} p(w|\theta_2)^{c(w,d)}} \\
 = \log \frac{p(\theta_1)}{p(\theta_2)} + \sum_{w \in V} c(w,d) \log \frac{p(w|\theta_1)}{p(w|\theta_2)} \\
 = \beta_0 + \sum f_i \beta_i
+$$
+
+E.g.,
+
+Given
+
+Category 1 T1:{d1=(w1w1w1w1w3w3)}
+
+Category 2 T2:{d2=(w1w1w2w2w3w4)}
+
+d3=(w3,w4),
+
+then,
+
+$$
+p(\theta_1) = 1/2
+$$
+
+$$
+p(\theta_2) = 1/2
+$$
+
+$$
+p(d3|\theta_1) = 2/6 * 0/6 =  0
+$$
+
+$$
+p(d3|\theta_2) = 1/6 * 1/6 = 1/36
+$$
+
+If using Laplace smoothing,
+
+$$
+|V| = 4
+$$
+
+$$
+p(w3|\theta_1) = 3/10
+$$
+
+$$
+p(w4|\theta_1) = 1/10
+$$
+
+$$
+p(w3|\theta_2) = 2/10
+$$
+
+$$
+p(w4|\theta_2) = 2/10
+$$
+
+$$
+p(d3|\theta_1) = 3/10 * 1/10
+$$
+
+$$
+p(d3|\theta_2) = 2/10 * 2/10
+$$
+
+The Naive Bayes predict (the posterior probability) is
+
+$$
+p(\theta_2|d3) = \frac{p(d3|\theta_2)p(\theta_2)}{p(d3)} \\
+ = \frac{p(d3|\theta_2)p(\theta_2)}{p(d3|\theta_1)p(\theta_1) + p(d3|\theta_2)p(\theta_2)}
 $$
 
 ### Discriminative approaches
