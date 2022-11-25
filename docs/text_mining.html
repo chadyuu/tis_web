@@ -445,23 +445,25 @@ z_{d,w} \in {B,1,2,...,k}
 </section>
 <section id="e-step" class="level5">
 <h5 class="anchored" data-anchor-id="e-step">E-step</h5>
-<p>Probability that w in doc d is generated from topic <span class="math inline">\(\theta_j\)</span>:$$ p(Z_{d,w} = j) = </p>
-<p>$$</p>
+<p>Probability that w in doc d is generated from topic <span class="math inline">\(\theta_j\)</span>:</p>
+<p><span class="math display">\[
+p(Z_{d,w} = j) = \frac{\pi^{(n)}_{d,j} p^{(n)}(w|\theta_j)}{\sum_{j'=1}^k \pi^{(n)}_{d,j'} p^{(n)}(w|\theta_{j'})}
+\]</span></p>
 <p>Probability that w in doc d is generated from background <span class="math inline">\(\theta_B\)</span>:</p>
-<p>$$</p>
-<p>p(Z_{d,w} = B) = </p>
-<p>$$</p>
+<p><span class="math display">\[
+p(Z_{d,w} = B) = \frac{\lambda_B p(w|\theta_B)}{\lambda_B \cdot p(w|\theta_B) + (1-\lambda_B)\sum_{j=1}^k \pi^{(n)}_{d,j} p^{(n)}(w|\theta_{j})}
+\]</span></p>
 </section>
 <section id="m-step" class="level5">
 <h5 class="anchored" data-anchor-id="m-step">M-step</h5>
 <p>Re-estimated probability of doc d covering topic <span class="math inline">\(\theta_j\)</span>:</p>
-<p>$$</p>
-<p>^{(n+1)}_{d,j} = </p>
-<p>$$</p>
+<p><span class="math display">\[
+\pi^{(n+1)}_{d,j} = \frac{\sum_{w \in V}c(w,d)(1-p(z_{d,w}=B))p(z_{d,w}=j)}{\sum_{j'}\sum_{w \in V}c(w,d)(1-p(z_{d,w}=B))p(z_{d,w}=j')}
+\]</span></p>
 <p>Re-estimated probability of word w for topic <span class="math inline">\(\theta_j\)</span>:</p>
-<p>$$</p>
-<p>p^{(n+1)}(w|_j) = </p>
-<p>$$</p>
+<p><span class="math display">\[
+p^{(n+1)}(w|\theta_j) = \frac{\sum_{d \in C}c(w,d)(1-p(z_{d,w}=B))p(z_{d,w}=j)}{\sum_{w' \in V}\sum_{d \in C}c(w',d)(1-p(z_{d,w'}=B))p(z_{d,w'}=j)}
+\]</span></p>
 </section>
 </section>
 </section>
@@ -469,13 +471,13 @@ z_{d,w} \in {B,1,2,...,k}
 <h3 class="anchored" data-anchor-id="plsa-with-prior-knowledge-user-controlled-plsa">PLSA with prior knowledge (User-controlled PLSA)</h3>
 <p>Maximum a Posteriori (MAP) Estimate:</p>
 <p>After setting <span class="math inline">\(\Lambda\)</span> to encode all kinds of preferences and constraints, compute the following maximum likelihood estimate, using an EM algorithm:</p>
-<p>$$</p>
-<p>^* = _p() p(Data| )</p>
-<p>$$</p>
+<p><span class="math display">\[
+\Lambda^* = \arg \max_\Lambda p(\Lambda) p(Data| \Lambda)
+\]</span></p>
 <p>E.g., given prior of <span class="math inline">\(p(w|\theta_{j'})\)</span>, one equation in M-step changes to</p>
-<p>$$</p>
-<p>p^{(n+1)}(w|_j) = </p>
-<p>$$</p>
+<p><span class="math display">\[
+p^{(n+1)}(w|\theta_j) = \frac{\sum_{d \in C}c(w,d)(1-p(z_{d,w}=B))p(z_{d,w}=j) + \mu p(w|\theta_{j'})}{\sum_{w' \in V}\sum_{d \in C}c(w',d)(1-p(z_{d,w'}=B))p(z_{d,w'}=j) + \mu}
+\]</span></p>
 </section>
 <section id="plsa-as-a-generative-model-latent-dirichlet-allocation" class="level3">
 <h3 class="anchored" data-anchor-id="plsa-as-a-generative-model-latent-dirichlet-allocation">PLSA as a generative model (Latent Dirichlet Allocation)</h3>
@@ -485,18 +487,18 @@ z_{d,w} \in {B,1,2,...,k}
 <li><p>many parameters</p></li>
 </ul>
 <p>To address these issues, LDA imposes a prior on <span class="math inline">\(\pi_d = (\pi_{d,1},...,\pi_{d,k})\)</span> and <span class="math inline">\(\theta_i = (p(w_1|\theta_i),...,p(w_M|\theta_i))\)</span> as follows.</p>
-<p>$$</p>
-<p>p(_d) = (),</p>
-<p>$$</p>
+<p><span class="math display">\[
+p(\pi_d) = \text{Dirichlet}(\alpha),
+\]</span></p>
 <p>where <span class="math inline">\(\alpha = (\alpha_1,…,\alpha_k)\)</span>.</p>
-<p>$$</p>
-<p>p(_i) = ()</p>
-<p>$$</p>
+<p><span class="math display">\[
+p(\theta_i) = \text{Dirichlet}(\beta)
+\]</span></p>
 <p>where <span class="math inline">\(\beta=(\beta_1,…,\beta_M)\)</span>.</p>
 <p>Then, parameters can be estimated using ML estimator:</p>
-<p>$$</p>
-<p>(,) = _{,} p(C| , )</p>
-<p>$$</p>
+<p><span class="math display">\[
+(\alpha,\beta) = \arg \max_{\alpha,\beta} \log p(C| \alpha, \beta)
+\]</span></p>
 </section>
 </section>
 <section id="text-clustering" class="level2">
@@ -513,18 +515,19 @@ z_{d,w} \in {B,1,2,...,k}
 </section>
 <section id="likelihood" class="level4">
 <h4 class="anchored" data-anchor-id="likelihood">Likelihood</h4>
-<p>$$</p>
-<p>p(d|) = <em>{i=1}^k [p(<em>i) </em>{j=1}^{|d|} p(x_j|_i)] \ = </em>{i=1}^k [p(<em>i) </em>{w V} p(w|_i)^{c(w,d)}]</p>
-<p>$$</p>
-<p>$$</p>
-<p>p(C|) = _{j=1}^N p(d_j|)</p>
-<p>$$</p>
+<p><span class="math display">\[
+p(d|\Lambda) = \sum_{i=1}^k [p(\theta_i) \Pi_{j=1}^{|d|} p(x_j|\theta_i)] \\
+= \sum_{i=1}^k [p(\theta_i) \Pi_{w \in V} p(w|\theta_i)^{c(w,d)}]
+\]</span></p>
+<p><span class="math display">\[
+p(C|\Lambda) = \Pi_{j=1}^N p(d_j|\Lambda)
+\]</span></p>
 </section>
 <section id="maximum-likelihood-estimate" class="level4">
 <h4 class="anchored" data-anchor-id="maximum-likelihood-estimate">Maximum Likelihood estimate</h4>
-<p>$$</p>
-<p>^* = _p(d|)</p>
-<p>$$</p>
+<p><span class="math display">\[
+\Lambda^* = \arg \max_\Lambda p(d|\Lambda)
+\]</span></p>
 </section>
 <section id="cluster-document-d-belong-to-c_d" class="level4">
 <h4 class="anchored" data-anchor-id="cluster-document-d-belong-to-c_d">Cluster document d belong to: <span class="math inline">\(c_d\)</span></h4>
@@ -532,15 +535,15 @@ z_{d,w} \in {B,1,2,...,k}
 <ol type="1">
 <li>Likelihood only</li>
 </ol>
-<p>$$</p>
-<p>c_d = _i p(d|_i)</p>
-<p>$$</p>
+<p><span class="math display">\[
+c_d = \arg \max_i p(d|\theta_i)
+\]</span></p>
 <ol start="2" type="1">
 <li>Likelihood + prior <span class="math inline">\(p(\theta_i)\)</span> (Bayesian)</li>
 </ol>
-<p>$$</p>
-<p>c_d = _i p(d|_i) p(_i)</p>
-<p>$$</p>
+<p><span class="math display">\[
+c_d = \arg \max_i p(d|\theta_i) p(\theta_i)
+\]</span></p>
 </section>
 <section id="em-algorithm-1" class="level4">
 <h4 class="anchored" data-anchor-id="em-algorithm-1">EM algorithm</h4>
@@ -548,18 +551,18 @@ z_{d,w} \in {B,1,2,...,k}
 <li>Initialize <span class="math inline">\(\Lambda\)</span> randomly.</li>
 <li>E-step</li>
 </ol>
-<p>$$</p>
-<p>p^{(n)} = (Z_d=i|d) p^{(n)}(<em>i) </em>{w V} p^{(n)} (w|_i)^{c(w,d)}</p>
-<p>$$</p>
+<p><span class="math display">\[
+p^{(n)} = (Z_d=i|d) \propto p^{(n)}(\theta_i) \Pi_{w \in V} p^{(n)} (w|\theta_i)^{c(w,d)}
+\]</span></p>
 <ol start="3" type="1">
 <li>M-step</li>
 </ol>
-<p>$$</p>
-<p>p<sup>{(n+1)}(<em>i) </em>{j=1}</sup>N p^{(n)}(z_{d_j}=i|d_j)</p>
-<p>$$</p>
-<p>$$</p>
-<p>p<sup>{(n+1)}(w|<em>i) </em>{j=1}</sup>N c(w,d_j) p^{(n)}(Z_{d_j}=1|d_j)</p>
-<p>$$</p>
+<p><span class="math display">\[
+p^{(n+1)}(\theta_i) \propto \sum_{j=1}^N p^{(n)}(z_{d_j}=i|d_j)
+\]</span></p>
+<p><span class="math display">\[
+p^{(n+1)}(w|\theta_i) \propto \sum_{j=1}^N c(w,d_j) p^{(n)}(Z_{d_j}=1|d_j)
+\]</span></p>
 <ol start="4" type="1">
 <li>Iterate E and M-step until the estimate converges.</li>
 </ol>
@@ -598,26 +601,31 @@ z_{d,w} \in {B,1,2,...,k}
 <section id="e.g.-naive-bayes" class="level4">
 <h4 class="anchored" data-anchor-id="e.g.-naive-bayes">E.g., Naive Bayes</h4>
 <p>Given categories</p>
-<p>$$</p>
-<p>T_1 = {d_{11},…,d_{1N_1}} \ …\ T_k = {d_{k1},…,d_{kN_1}},</p>
-<p>$$</p>
-<p>$$</p>
-<p>p(_i) = |T_i|</p>
-<p>$$</p>
-<p>$$</p>
-<p>p(w|_i) = c(w,T_i)</p>
-<p>$$</p>
+<p><span class="math display">\[
+T_1 = {d_{11},...,d_{1N_1}} \\
+...\\
+T_k = {d_{k1},...,d_{kN_1}},
+\]</span></p>
+<p><span class="math display">\[
+p(\theta_i) = \frac{N_i}{\sum_{j=1}^k N_j} \propto |T_i|
+\]</span></p>
+<p><span class="math display">\[
+p(w|\theta_i) = \frac{\sum_{j=1}^{N_i}c(w,d_{ij})}{\sum_{w' \in V} \sum_{j=1}^{N_i} c(w',d_{ij})} \propto c(w,T_i)
+\]</span></p>
 <p>If smoothing to address data sparseness,</p>
-<p>$$</p>
-<p>p(_i) = </p>
-<p>$$</p>
-<p>$$</p>
-<p>p(w|_i) = </p>
-<p>$$</p>
+<p><span class="math display">\[
+p(\theta_i) = \frac{N_i + \delta}{\sum_{j=1}^k N_j + k \delta}
+\]</span></p>
+<p><span class="math display">\[
+p(w|\theta_i) = \frac{\sum_{j=1}^{N_i}c(w,d_{ij}) + \mu p(w|\theta_B)}{\sum_{w' \in V} \sum_{j=1}^{N_i} c(w',d_{ij}) + \mu}
+\]</span></p>
 <p>Then, the comparison of categories for document <span class="math inline">\(d\)</span>, we can apply logistic regression as follows.</p>
-<p>$$</p>
-<p>score(d) = \ = \ = + _{w V} c(w,d) \ = _0 + f_i _i</p>
-<p>$$</p>
+<p><span class="math display">\[
+score(d) = \log \frac{p(\theta_1|d)}{p(\theta_2|d)} \\
+= \log \frac{p(\theta_1) \Pi_{w \in V} p(w|\theta_1)^{c(w,d)}}{p(\theta_2) \Pi_{w \in V} p(w|\theta_2)^{c(w,d)}} \\
+= \log \frac{p(\theta_1)}{p(\theta_2)} + \sum_{w \in V} c(w,d) \log \frac{p(w|\theta_1)}{p(w|\theta_2)} \\
+= \beta_0 + \sum f_i \beta_i
+\]</span></p>
 </section>
 </section>
 <section id="discriminative-approaches" class="level3">
@@ -628,18 +636,18 @@ z_{d,w} \in {B,1,2,...,k}
 </section>
 <section id="evaluation" class="level3">
 <h3 class="anchored" data-anchor-id="evaluation">Evaluation</h3>
-<p>$$</p>
-<p> = </p>
-<p>$$</p>
-<p>$$</p>
-<p> = </p>
-<p>$$</p>
-<p>$$</p>
-<p>F_= </p>
-<p>$$</p>
-<p>$$</p>
-<p>F_1 = </p>
-<p>$$</p>
+<p><span class="math display">\[
+\text{Precision} = \frac{TP}{TP+FP}
+\]</span></p>
+<p><span class="math display">\[
+\text{Recall} = \frac{TP}{TP+FN}
+\]</span></p>
+<p><span class="math display">\[
+F_\beta = \frac{(\beta^2 + 1)P*R}{\beta^2P+R}
+\]</span></p>
+<p><span class="math display">\[
+F_1 = \frac{2PR}{P+R}
+\]</span></p>
 <ul>
 <li><p>Macro Average over all the categories</p></li>
 <li><p>Macro Average over all the documents</p></li>
@@ -655,13 +663,13 @@ z_{d,w} \in {B,1,2,...,k}
 <p>input: document d</p>
 <p>output: discrete rating <span class="math inline">\(r \in {1,2,…,k}\)</span></p>
 <p>model: use <span class="math inline">\(k-1\)</span> classifiers</p>
-<p>$$</p>
-<p>p(r j| X) = </p>
-<p>$$</p>
+<p><span class="math display">\[
+p(r \geq j| X) = \frac{e^{\alpha_j + \sum x_i \beta_{ji}}}{e^{\alpha_j + \sum x_i \beta_{ji}} + 1}
+\]</span></p>
 <p>The problems is as many parameters as $(k-1)*(M+1)$, although the positive/negative features are similar. To address this issue, we remodel as follows with <span class="math inline">\(M+k-1\)</span> parmeters.</p>
-<p>$$</p>
-<p>p(r j| X) = </p>
-<p>$$</p>
+<p><span class="math display">\[
+p(r \geq j| X) = \frac{e^{\alpha_j + \sum x_i \beta_{i}}}{e^{\alpha_j + \sum x_i \beta_{i}} + 1}
+\]</span></p>
 </section>
 <section id="latent-aspect-rating-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="latent-aspect-rating-analysis">Latent Aspect Rating Analysis</h3>
@@ -708,9 +716,9 @@ z_{d,w} \in {B,1,2,...,k}
 <section id="network-supervised-topic-modeling-netplsa" class="level3">
 <h3 class="anchored" data-anchor-id="network-supervised-topic-modeling-netplsa">Network Supervised Topic Modeling (NetPLSA)</h3>
 <p>Add network-induced regularizers to the likelihood objective function.</p>
-<p>$$</p>
-<p>^* = _f(p(|), r(,))</p>
-<p>$$</p>
+<p><span class="math display">\[
+\Lambda^* = \arg \max_\Lambda f(p(\text{TextData}|\Lambda), r(\Lambda,\text{Network}))
+\]</span></p>
 </section>
 <section id="mining-causal-topics-with-time-series-supervision" class="level3">
 <h3 class="anchored" data-anchor-id="mining-causal-topics-with-time-series-supervision">Mining Causal Topics with Time Series Supervision</h3>
