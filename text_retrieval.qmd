@@ -186,14 +186,9 @@ $$
 
 where $b \in [0,1]$ and $k \in [0, + \infty)$.
 
-$\frac{(k+1)x}{x+k}$ is the basic sub-linear transformation for $x$ with the upper limit $k+1$. 
-$\frac{(k+1)x}{norm*(x+k)}$ changes the upper limit with respect to $norm$.
-On the other hand, $\frac{(k+1)x}{x+norm*k}$ does not change the upper limit of $k+1$.
+$\frac{(k+1)x}{x+k}$ is the basic sub-linear transformation for $x$ with the upper limit $k+1$. $\frac{(k+1)x}{norm*(x+k)}$ changes the upper limit with respect to $norm$. On the other hand, $\frac{(k+1)x}{x+norm*k}$ does not change the upper limit of $k+1$.
 
-You can play with this.
-https://www.desmos.com/calculator
-![image.png](https://campuspro-uploads.s3.us-west-2.amazonaws.com/984118d3-29f1-4a34-9a3b-14c65608f28c/afa58ffb-86d6-4de0-bc62-fe3b89592e31/image.png)
-
+You can play with this. https://www.desmos.com/calculator ![image.png](https://campuspro-uploads.s3.us-west-2.amazonaws.com/984118d3-29f1-4a34-9a3b-14c65608f28c/afa58ffb-86d6-4de0-bc62-fe3b89592e31/image.png)
 
 ## System Implementation
 

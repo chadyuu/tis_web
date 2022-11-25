@@ -121,6 +121,11 @@ ul.task-list{list-style: none;}
   <a href="./text_retrieval.html" class="sidebar-item-text sidebar-link active">Text Retrieval</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./text_mining.html" class="sidebar-item-text sidebar-link">Text Mining</a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -367,6 +372,8 @@ f(q,d) = \sum c(w,q) \frac{ln[1 + ln[1 + c(w,d)]]}{1 - b + b \frac{|d|}{avdl}} l
 f(q,d) = \sum c(w,q) \frac{(k+1)c(w,d)}{c(w,d) + k(1-b+b\frac{|d|}{avdl})} log \frac{M+1}{df(w)}
 \]</span></p>
 <p>where <span class="math inline">\(b \in [0,1]\)</span> and <span class="math inline">\(k \in [0, + \infty)\)</span>.</p>
+<p><span class="math inline">\(\frac{(k+1)x}{x+k}\)</span> is the basic sub-linear transformation for <span class="math inline">\(x\)</span> with the upper limit <span class="math inline">\(k+1\)</span>. <span class="math inline">\(\frac{(k+1)x}{norm*(x+k)}\)</span> changes the upper limit with respect to <span class="math inline">\(norm\)</span>. On the other hand, <span class="math inline">\(\frac{(k+1)x}{x+norm*k}\)</span> does not change the upper limit of <span class="math inline">\(k+1\)</span>.</p>
+<p>You can play with this. https://www.desmos.com/calculator <img src="https://campuspro-uploads.s3.us-west-2.amazonaws.com/984118d3-29f1-4a34-9a3b-14c65608f28c/afa58ffb-86d6-4de0-bc62-fe3b89592e31/image.png" class="img-fluid" alt="image.png"></p>
 </section>
 </section>
 </section>
@@ -820,7 +827,7 @@ P(R=1|Q,D) = s(X_1(Q,D),...,X_n(Q,D), \lambda)
 <ul>
 <li><p>Item similarity: content-based filtering</p>
 <ul>
-<li>Recommend X which is similar to what items U likes.</li>
+<li>Recommend X which is similar to items U likes.</li>
 </ul></li>
 <li><p>User similarity: collaborative filtering</p>
 <ul>
@@ -845,7 +852,7 @@ P(R=1|Q,D) = s(X_1(Q,D),...,X_n(Q,D), \lambda)
 <p><span class="math display">\[
 \theta = \alpha * \theta_{zero} + (1-\alpha)*\theta_{optimal}
 \]</span></p>
-<p>where <span class="math inline">\(\alpha = \beta + (1-\beta)e^{-N*\gamma}\)</span>, N= the number of training examples, <span class="math inline">\(\theta_{zero}\)</span> is threshold 0.</p>
+<p>where <span class="math inline">\(\alpha = \beta + (1-\beta)e^{-N*\gamma}\)</span>, N= the number of training examples, <span class="math inline">\(\theta_{zero}\)</span> is threshold where utility equals 0.</p>
 <p>So <span class="math inline">\(\alpha\)</span> gets smaller as we train with more examples, i.e., less exploration.</p>
 </section>
 </section>

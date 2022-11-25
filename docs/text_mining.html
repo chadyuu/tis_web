@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>tis_web - Text Mining</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">tis_web</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Text Mining</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        <div class="sidebar-tools-collapse">
+    <a href="" title="" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-github"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/chadyuu/tis_web/">
+          Source Code
+          </a>
+        </li>
+    </ul>
+</div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">An Introduction to Text Retrieval and Mining</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./text_retrieval.html" class="sidebar-item-text sidebar-link">Text Retrieval</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./text_mining.html" class="sidebar-item-text sidebar-link active">Text Mining</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#word-association" id="toc-word-association" class="nav-link active" data-scroll-target="#word-association">Word association</a>
+  <ul class="collapse">
+  <li><a href="#basic-word-relations" id="toc-basic-word-relations" class="nav-link" data-scroll-target="#basic-word-relations">Basic word relations</a></li>
+  <li><a href="#bag-of-words-representation" id="toc-bag-of-words-representation" class="nav-link" data-scroll-target="#bag-of-words-representation">Bag of words representation</a></li>
+  <li><a href="#entropy" id="toc-entropy" class="nav-link" data-scroll-target="#entropy">Entropy</a></li>
+  <li><a href="#conditional-entropy" id="toc-conditional-entropy" class="nav-link" data-scroll-target="#conditional-entropy">Conditional Entropy</a></li>
+  <li><a href="#mutual-information" id="toc-mutual-information" class="nav-link" data-scroll-target="#mutual-information">Mutual Information</a></li>
+  </ul></li>
+  <li><a href="#topic-mining" id="toc-topic-mining" class="nav-link" data-scroll-target="#topic-mining">Topic mining</a>
+  <ul class="collapse">
+  <li><a href="#unigram-language-model" id="toc-unigram-language-model" class="nav-link" data-scroll-target="#unigram-language-model">Unigram Language Model</a></li>
+  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood">Maximum Likelihood</a></li>
+  <li><a href="#bayesian-estimation" id="toc-bayesian-estimation" class="nav-link" data-scroll-target="#bayesian-estimation">Bayesian estimation</a></li>
+  <li><a href="#mining-one-topic" id="toc-mining-one-topic" class="nav-link" data-scroll-target="#mining-one-topic">Mining one topic</a></li>
+  <li><a href="#mixture-of-two-unigram-language-models" id="toc-mixture-of-two-unigram-language-models" class="nav-link" data-scroll-target="#mixture-of-two-unigram-language-models">Mixture of Two Unigram Language Models</a></li>
+  <li><a href="#probabilistic-latent-semantic-analysis-plsa" id="toc-probabilistic-latent-semantic-analysis-plsa" class="nav-link" data-scroll-target="#probabilistic-latent-semantic-analysis-plsa">Probabilistic Latent Semantic Analysis (PLSA)</a></li>
+  <li><a href="#plsa-with-prior-knowledge-user-controlled-plsa" id="toc-plsa-with-prior-knowledge-user-controlled-plsa" class="nav-link" data-scroll-target="#plsa-with-prior-knowledge-user-controlled-plsa">PLSA with prior knowledge (User-controlled PLSA)</a></li>
+  <li><a href="#plsa-as-a-generative-model-latent-dirichlet-allocation" id="toc-plsa-as-a-generative-model-latent-dirichlet-allocation" class="nav-link" data-scroll-target="#plsa-as-a-generative-model-latent-dirichlet-allocation">PLSA as a generative model (Latent Dirichlet Allocation)</a></li>
+  </ul></li>
+  <li><a href="#text-clustering" id="toc-text-clustering" class="nav-link" data-scroll-target="#text-clustering">Text clustering</a>
+  <ul class="collapse">
+  <li><a href="#generative-probabilistic-models" id="toc-generative-probabilistic-models" class="nav-link" data-scroll-target="#generative-probabilistic-models">Generative probabilistic models</a></li>
+  <li><a href="#similarity-based-approaches" id="toc-similarity-based-approaches" class="nav-link" data-scroll-target="#similarity-based-approaches">Similarity-based approaches</a></li>
+  </ul></li>
+  <li><a href="#text-categorization" id="toc-text-categorization" class="nav-link" data-scroll-target="#text-categorization">Text Categorization</a>
+  <ul class="collapse">
+  <li><a href="#generative-probabilistic-models-1" id="toc-generative-probabilistic-models-1" class="nav-link" data-scroll-target="#generative-probabilistic-models-1">Generative probabilistic models</a></li>
+  <li><a href="#discriminative-approaches" id="toc-discriminative-approaches" class="nav-link" data-scroll-target="#discriminative-approaches">Discriminative approaches</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
+  </ul></li>
+  <li><a href="#opinion-mining-and-sentiment-analysis" id="toc-opinion-mining-and-sentiment-analysis" class="nav-link" data-scroll-target="#opinion-mining-and-sentiment-analysis">Opinion mining and sentiment analysis</a>
+  <ul class="collapse">
+  <li><a href="#ordinal-logistic-regression" id="toc-ordinal-logistic-regression" class="nav-link" data-scroll-target="#ordinal-logistic-regression">Ordinal Logistic Regression</a></li>
+  <li><a href="#latent-aspect-rating-analysis" id="toc-latent-aspect-rating-analysis" class="nav-link" data-scroll-target="#latent-aspect-rating-analysis">Latent Aspect Rating Analysis</a></li>
+  </ul></li>
+  <li><a href="#contextual-text-mining" id="toc-contextual-text-mining" class="nav-link" data-scroll-target="#contextual-text-mining">Contextual text Mining</a>
+  <ul class="collapse">
+  <li><a href="#contextual-probabilistic-latent-semantic-analysis-cplsa" id="toc-contextual-probabilistic-latent-semantic-analysis-cplsa" class="nav-link" data-scroll-target="#contextual-probabilistic-latent-semantic-analysis-cplsa">Contextual Probabilistic Latent Semantic Analysis (CPLSA</a></li>
+  <li><a href="#network-supervised-topic-modeling-netplsa" id="toc-network-supervised-topic-modeling-netplsa" class="nav-link" data-scroll-target="#network-supervised-topic-modeling-netplsa">Network Supervised Topic Modeling (NetPLSA)</a></li>
+  <li><a href="#mining-causal-topics-with-time-series-supervision" id="toc-mining-causal-topics-with-time-series-supervision" class="nav-link" data-scroll-target="#mining-causal-topics-with-time-series-supervision">Mining Causal Topics with Time Series Supervision</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Text Mining</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="word-association" class="level2">
+<h2 class="anchored" data-anchor-id="word-association">Word association</h2>
+<section id="basic-word-relations" class="level3">
+<h3 class="anchored" data-anchor-id="basic-word-relations">Basic word relations</h3>
+<ul>
+<li><p>Paradigmatic (similar context): A &amp; B have paradigmatic relation if they can be substituted for each other.</p>
+<ul>
+<li>E.g., cat / dog</li>
+</ul></li>
+<li><p>Syntagmatic (correlated occurences ): A &amp; B have syntagmatic relation if they can be combined with each other.</p>
+<ul>
+<li>E.g., cat / sit, car / drive</li>
+</ul></li>
+</ul>
+</section>
+<section id="bag-of-words-representation" class="level3">
+<h3 class="anchored" data-anchor-id="bag-of-words-representation">Bag of words representation</h3>
+<p>First, compute a bag of words for a document in Vector Space Model (VSM). (E.g., [“eats”, “is”, “has”] = [4, 10, 5])</p>
+<p>Probability to randomly pick <span class="math inline">\(w_i\)</span> from each document is</p>
+<p><span class="math display">\[
+x_i = c(w_i, d1) / |d1|
+\]</span></p>
+<p><span class="math display">\[
+y_i = c(w_i, d2) / |d2|
+\]</span></p>
+<p>where <span class="math inline">\(c\)</span> denotes the count (term frequency) and <span class="math inline">\(|d1|\)</span> denotes total counts of words in d1.</p>
+<p>We represent each document as <span class="math inline">\(d1 = (x_1,…,x_N)\)</span> and <span class="math inline">\(d2 = (y_1,…,y_N)\)</span>.</p>
+<p>Then, similarity between d1 and d2 is defined as</p>
+<p><span class="math display">\[
+Sim(d1,d2)=d1 \cdot d2 = \sum_{i=1}^{N} x_i y_i
+\]</span></p>
+<p>We call this <strong>Expected Overlap of Words in Context (EOWC)</strong>.</p>
+<p>Moreover, we should</p>
+<ul>
+<li><p>penalize too frequent terms: Sublinear transformation of term frequency</p>
+<ul>
+<li><span class="math inline">\(TF(w,d) = \frac{(k+1)c(w,d)}{c(w,d)+k}\)</span></li>
+</ul></li>
+<li><p>reward matching a rare word: IDF term weighting</p>
+<ul>
+<li><span class="math inline">\(IDF(W) = \log [(\text{Total number of docs}+1)/ \text{Doc Frequency}]\)</span></li>
+</ul></li>
+</ul>
+<p>Finally, the similarity is redefined as</p>
+<p><span class="math display">\[
+x_i = TF(w_i, d1) / |d1| \\
+y_i = TF(w_i, d2) / |d2| \\
+Sim(d1,d2) = \sum IDF(w_i) x_i y_i
+\]</span></p>
+<p>Also, we can discover syntagmatic relations from the highly weighted terms of</p>
+<p><span class="math display">\[
+\text{IDF-weighted d1} = (x_1 \cdot IDF(w_1),...,x_N \cdot IDF(w_N)).
+\]</span></p>
+</section>
+<section id="entropy" class="level3">
+<h3 class="anchored" data-anchor-id="entropy">Entropy</h3>
+<p>We can also find sytagmatic relations by Entropy <span class="math inline">\(H(X)\)</span>.</p>
+<p><span class="math display">\[
+H(X_w) = \sum_{v \in {0,1}} -p(X_w=v) \log_2 p(X_w=v)
+\]</span></p>
+<p>where <span class="math inline">\(0 \log_2 0 = 0\)</span>.</p>
+<p><span class="math inline">\(H(X_w)\)</span> is maximized (=1) when <span class="math inline">\(p(X_w=1) = p(x_w=0) = 0.5\)</span> and minimized(=0) when [<span class="math inline">\(p(X_w=1) = 1\)</span> and <span class="math inline">\(p(x_w=0) = 0\)</span>] or [<span class="math inline">\(p(X_w=1) = 0\)</span> and <span class="math inline">\(p(x_w=0) = 1\)</span>].</p>
+<p>In other words, <strong>high entropy words are harder to predict.</strong></p>
+</section>
+<section id="conditional-entropy" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-entropy">Conditional Entropy</h3>
+<p>Conditional Entropy is defined as</p>
+<p><span class="math display">\[
+H(X_{w1} | X_{w2}) = \sum_{u \in {0,1}} [p(X_{w2}=u) H(X_{w1} | X_{w2} = u)]
+\]</span></p>
+<p><span class="math display">\[
+H(X) \geq H(X|Y)
+\]</span></p>
+<p>We can find syntagmatic relations by the following procedures.</p>
+<ol type="1">
+<li>Compute conditional entropy for every other word.</li>
+<li>Sort all the candidate words in ascending order of conditional entropy.</li>
+<li>Take the top-ranked candidates (with small conditional entropy) that have potential syntagmatic relations.</li>
+</ol>
+<p>Note, <span class="math inline">\(H(X_{w1}|X_{w2})\)</span> and <span class="math inline">\(H(X_{w1}|X_{w3})\)</span> is comparable and has the same upper bound <span class="math inline">\(H(X_{w1})\)</span>, while <span class="math inline">\(H(X_{w1}|X_{w2})\)</span> and <span class="math inline">\(H(X_{w3}|X_{w2})\)</span> are not. We have to compare the same probability of <span class="math inline">\(w_1\)</span>.</p>
+</section>
+<section id="mutual-information" class="level3">
+<h3 class="anchored" data-anchor-id="mutual-information">Mutual Information</h3>
+<p>Mutual information is defined as</p>
+<p><span class="math display">\[
+I(X; Y) = H(X) - H(X|Y) = H(Y) - H(Y|X)
+\]</span></p>
+<p>with the following properties:</p>
+<ul>
+<li><p><span class="math inline">\(I(X;Y) \geq 0\)</span></p></li>
+<li><p><span class="math inline">\(I(X;Y) = I(Y;X)\)</span></p></li>
+<li><p><span class="math inline">\(I(X;Y) = 0\)</span> iff X&amp;Y are independent</p></li>
+</ul>
+<p>We can rewrite mutual information using KL-divergence as follows.</p>
+<p><span class="math display">\[
+I(X_{w1};X_{w2}) = \sum_{u \in {0,1}} \sum_{v \in {0,1}} p(X_{w1} =u, X_{w2} = v) \log_2 \frac{p(X_{w1} = u, X_{w2} = v)}{p(X_w1 = u) p(X_{w2} = v)}
+\]</span></p>
+<p>We should add pseudo data so that no event has zero counts (Smoothing).</p>
+</section>
+</section>
+<section id="topic-mining" class="level2">
+<h2 class="anchored" data-anchor-id="topic-mining">Topic mining</h2>
+<ul>
+<li><p>Input</p>
+<ul>
+<li><p>A collection of N text documents <span class="math inline">\(C={d_1,…,d_N}\)</span></p></li>
+<li><p>Vocabulary set: <span class="math inline">\(V=\{w_1,…,w_M\}\)</span></p></li>
+<li><p>Number of topics <span class="math inline">\(k\)</span></p></li>
+</ul></li>
+<li><p>Output</p>
+<ul>
+<li><p>k topics: <span class="math inline">\({\theta_1,…,\theta_k}\)</span></p>
+<ul>
+<li><span class="math inline">\(\sum_{w \in V} p(w|\theta_i) = 1\)</span></li>
+</ul></li>
+<li><p>Coverage of topics in each $d_i$: <span class="math inline">\(\{\pi_{i1},…,\pi_{ik}\}\)</span></p>
+<ul>
+<li><p><span class="math inline">\(\pi_{ij}\)</span> denotes the probability of <span class="math inline">\(d_i\)</span> covering topic <span class="math inline">\(\theta_j\)</span></p></li>
+<li><p><span class="math inline">\(\sum_{j=1}^k \pi_{ij} = 1\)</span></p></li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="unigram-language-model" class="level3">
+<h3 class="anchored" data-anchor-id="unigram-language-model">Unigram Language Model</h3>
+<p><span class="math display">\[
+p(w_1 w_2 ... w_n) = p(w_1)p(w_2)...p(w_n)
+\]</span></p>
+</section>
+<section id="maximum-likelihood" class="level3">
+<h3 class="anchored" data-anchor-id="maximum-likelihood">Maximum Likelihood</h3>
+<p><span class="math display">\[
+\hat{\theta} = \arg \max_\theta P(X|\theta)
+\]</span></p>
+</section>
+<section id="bayesian-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="bayesian-estimation">Bayesian estimation</h3>
+<p><span class="math display">\[
+\hat{\theta} = \arg \max_\theta P(\theta|X) = \arg \max_\theta P(X|\theta) P(\theta)
+\]</span></p>
+</section>
+<section id="mining-one-topic" class="level3">
+<h3 class="anchored" data-anchor-id="mining-one-topic">Mining one topic</h3>
+<section id="data" class="level4">
+<h4 class="anchored" data-anchor-id="data">Data</h4>
+<p>document $d=x_1 x_2…x_{|d|}$, <span class="math inline">\(x_i \in V={w_1,…,w_M}\)</span></p>
+</section>
+<section id="model" class="level4">
+<h4 class="anchored" data-anchor-id="model">Model</h4>
+<p>Unigram LM <span class="math inline">\(\theta_i = p(w_i|\theta)\)</span> where <span class="math inline">\(i=1,…,M\)</span> and <span class="math inline">\(\theta_1+…+\theta_M = 1\)</span></p>
+</section>
+<section id="likelihood-function" class="level4">
+<h4 class="anchored" data-anchor-id="likelihood-function">Likelihood function</h4>
+<p><span class="math display">\[
+p(d|\theta) = p(x_1|\theta) \times ... \times p(x_{|d|}|\theta) \\
+= p(w_1|\theta)^{c(w_1,d)} \times ... \times p(w_M|\theta)^{c(w_M,d)} \\
+= \Pi_{i=1}^{M} p(w_i|\theta)^{c(w_i,d)} \\
+= \Pi_{i=1}^{M} \theta_i^{c(w_i,d)}
+\]</span></p>
+</section>
+<section id="ml-estimate-log-likelihood" class="level4">
+<h4 class="anchored" data-anchor-id="ml-estimate-log-likelihood">ML estimate (Log-Likelihood)</h4>
+<p><span class="math display">\[
+\arg \max_{\theta_1,...,\theta_M} \sum_{i=1}^{M} c(w_i,d) \log \theta_i
+\]</span></p>
+<p>Then, we can derive the following solution, using Lagrange multiplier approach.</p>
+<p><span class="math display">\[
+\hat{\theta_i} = \frac{c(w_i,d)}{|d|}
+\]</span></p>
+</section>
+</section>
+<section id="mixture-of-two-unigram-language-models" class="level3">
+<h3 class="anchored" data-anchor-id="mixture-of-two-unigram-language-models">Mixture of Two Unigram Language Models</h3>
+<p>This realizes factoring out background words.</p>
+<section id="parameters-lambda" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-lambda">parameters <span class="math inline">\(\Lambda\)</span></h4>
+<p><span class="math display">\[
+p(w|\theta_d), p(w|\theta_B), p(\theta_d), p(\theta_B)
+\]</span></p>
+<p>where <span class="math inline">\(p(\theta_d) + p(\theta_B) = 1\)</span></p>
+</section>
+<section id="likelihood-function-1" class="level4">
+<h4 class="anchored" data-anchor-id="likelihood-function-1">Likelihood function</h4>
+<p><span class="math display">\[
+p(d|\Lambda) = \Pi_{i-1}^{M} [p(\theta_d) p(w_i|\theta_d) + p(\theta_B) p(w_i|\theta_B)]^{c(w,d)}
+\]</span></p>
+</section>
+<section id="ml-estimate" class="level4">
+<h4 class="anchored" data-anchor-id="ml-estimate">ML Estimate</h4>
+<p><span class="math display">\[
+\Lambda^* = \arg \max_\Lambda p(d|\Lambda)
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\sum p(w_i|\theta_d) = \sum p(w_i|\theta_B)=1 \\
+p(\theta_d)+p(\theta_B)=1
+\]</span></p>
+</section>
+<section id="the-expectation-maximization-em-algorithm" class="level4">
+<h4 class="anchored" data-anchor-id="the-expectation-maximization-em-algorithm">The Expectation-Maximization (EM) Algorithm</h4>
+<ol type="1">
+<li>Initialization</li>
+</ol>
+<p>Initialize <span class="math inline">\(p(w|\theta_d)\)</span> with random values.</p>
+<ol start="2" type="1">
+<li>E-step</li>
+</ol>
+<p><span class="math display">\[
+p^{(n)}(z=0|w) = \frac{p(\theta_d) p^{(n)}(w|\theta_d)}{p(\theta_d) p^{(n)}(w|\theta_d) + p(\theta_B)p(w|\theta_B)}
+\]</span></p>
+<p>where <span class="math inline">\(z\)</span> is a hidden variable and <span class="math inline">\(z=0\)</span> and <span class="math inline">\(z=1\)</span> denote a word comes from <span class="math inline">\(\theta_d\)</span> and <span class="math inline">\(\theta_B\)</span> respectively.</p>
+<ol start="3" type="1">
+<li>M-step</li>
+</ol>
+<p><span class="math display">\[
+p^{(n+1)}(w|\theta_d) = \frac{c(w,d) p^{(n)}(z=0|w)}{\sum_{w' \in V}c(w',d)p^{(n)}(z=0|w')}
+\]</span></p>
+<ol start="4" type="1">
+<li>Iterate E-step and M-step until the likelihood <strong>converges</strong> <strong>to a local maximum</strong>.</li>
+</ol>
+</section>
+</section>
+<section id="probabilistic-latent-semantic-analysis-plsa" class="level3">
+<h3 class="anchored" data-anchor-id="probabilistic-latent-semantic-analysis-plsa">Probabilistic Latent Semantic Analysis (PLSA)</h3>
+<section id="likelihood-functions" class="level4">
+<h4 class="anchored" data-anchor-id="likelihood-functions">Likelihood Functions</h4>
+<p><span class="math display">\[
+p_d(w) = \lambda_B \cdot p(w|\theta_B) + (1-\lambda_B)\sum_{j=1}^k \pi_{d,j} p(w|\theta_j)
+\]</span></p>
+<p><span class="math display">\[
+\log p(d) = \sum_{w \in V} c(w,d) \log[\lambda_B \cdot p(w|\theta_B) + (1-\lambda_B)\sum_{j=1}^k \pi_{d,j}p(w|\theta_j)]
+\]</span></p>
+<p><span class="math display">\[
+\log p(C|\Lambda) = \sum_{d \in C} \sum_{w \in V} c(w,d) \log[\lambda_B \cdot p(w|\theta_B) + (1-\lambda_B)\sum_{j=1}^k \pi_{d,j}p(w|\theta_j)]
+\]</span></p>
+</section>
+<section id="em-algorithm" class="level4">
+<h4 class="anchored" data-anchor-id="em-algorithm">EM algorithm</h4>
+<p>Hidden variable (topic indicator)</p>
+<p><span class="math display">\[
+z_{d,w} \in {B,1,2,...,k}
+\]</span></p>
+<section id="initialization" class="level5">
+<h5 class="anchored" data-anchor-id="initialization">Initialization</h5>
+<p>Initialize all unknown parameters randomly.</p>
+</section>
+<section id="e-step" class="level5">
+<h5 class="anchored" data-anchor-id="e-step">E-step</h5>
+<p>Probability that w in doc d is generated from topic <span class="math inline">\(\theta_j\)</span>:$$ p(Z_{d,w} = j) = </p>
+<p>$$</p>
+<p>Probability that w in doc d is generated from background <span class="math inline">\(\theta_B\)</span>:</p>
+<p>$$</p>
+<p>p(Z_{d,w} = B) = </p>
+<p>$$</p>
+</section>
+<section id="m-step" class="level5">
+<h5 class="anchored" data-anchor-id="m-step">M-step</h5>
+<p>Re-estimated probability of doc d covering topic <span class="math inline">\(\theta_j\)</span>:</p>
+<p>$$</p>
+<p>^{(n+1)}_{d,j} = </p>
+<p>$$</p>
+<p>Re-estimated probability of word w for topic <span class="math inline">\(\theta_j\)</span>:</p>
+<p>$$</p>
+<p>p^{(n+1)}(w|_j) = </p>
+<p>$$</p>
+</section>
+</section>
+</section>
+<section id="plsa-with-prior-knowledge-user-controlled-plsa" class="level3">
+<h3 class="anchored" data-anchor-id="plsa-with-prior-knowledge-user-controlled-plsa">PLSA with prior knowledge (User-controlled PLSA)</h3>
+<p>Maximum a Posteriori (MAP) Estimate:</p>
+<p>After setting <span class="math inline">\(\Lambda\)</span> to encode all kinds of preferences and constraints, compute the following maximum likelihood estimate, using an EM algorithm:</p>
+<p>$$</p>
+<p>^* = _p() p(Data| )</p>
+<p>$$</p>
+<p>E.g., given prior of <span class="math inline">\(p(w|\theta_{j'})\)</span>, one equation in M-step changes to</p>
+<p>$$</p>
+<p>p^{(n+1)}(w|_j) = </p>
+<p>$$</p>
+</section>
+<section id="plsa-as-a-generative-model-latent-dirichlet-allocation" class="level3">
+<h3 class="anchored" data-anchor-id="plsa-as-a-generative-model-latent-dirichlet-allocation">PLSA as a generative model (Latent Dirichlet Allocation)</h3>
+<p>PLSA has the following deficiencies:</p>
+<ul>
+<li><p>not a generative model</p></li>
+<li><p>many parameters</p></li>
+</ul>
+<p>To address these issues, LDA imposes a prior on <span class="math inline">\(\pi_d = (\pi_{d,1},...,\pi_{d,k})\)</span> and <span class="math inline">\(\theta_i = (p(w_1|\theta_i),...,p(w_M|\theta_i))\)</span> as follows.</p>
+<p>$$</p>
+<p>p(_d) = (),</p>
+<p>$$</p>
+<p>where <span class="math inline">\(\alpha = (\alpha_1,…,\alpha_k)\)</span>.</p>
+<p>$$</p>
+<p>p(_i) = ()</p>
+<p>$$</p>
+<p>where <span class="math inline">\(\beta=(\beta_1,…,\beta_M)\)</span>.</p>
+<p>Then, parameters can be estimated using ML estimator:</p>
+<p>$$</p>
+<p>(,) = _{,} p(C| , )</p>
+<p>$$</p>
+</section>
+</section>
+<section id="text-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="text-clustering">Text clustering</h2>
+<section id="generative-probabilistic-models" class="level3">
+<h3 class="anchored" data-anchor-id="generative-probabilistic-models">Generative probabilistic models</h3>
+<section id="data-1" class="level4">
+<h4 class="anchored" data-anchor-id="data-1">Data</h4>
+<p>a collection of documents <span class="math inline">\(C={d_1,…,d_N}\)</span></p>
+</section>
+<section id="model-1" class="level4">
+<h4 class="anchored" data-anchor-id="model-1">Model</h4>
+<p>mixture of k unigram LMs: <span class="math inline">\(\Lambda = ({\theta_i}; {p(\theta_i)})\)</span></p>
+</section>
+<section id="likelihood" class="level4">
+<h4 class="anchored" data-anchor-id="likelihood">Likelihood</h4>
+<p>$$</p>
+<p>p(d|) = <em>{i=1}^k [p(<em>i) </em>{j=1}^{|d|} p(x_j|_i)] \ = </em>{i=1}^k [p(<em>i) </em>{w V} p(w|_i)^{c(w,d)}]</p>
+<p>$$</p>
+<p>$$</p>
+<p>p(C|) = _{j=1}^N p(d_j|)</p>
+<p>$$</p>
+</section>
+<section id="maximum-likelihood-estimate" class="level4">
+<h4 class="anchored" data-anchor-id="maximum-likelihood-estimate">Maximum Likelihood estimate</h4>
+<p>$$</p>
+<p>^* = _p(d|)</p>
+<p>$$</p>
+</section>
+<section id="cluster-document-d-belong-to-c_d" class="level4">
+<h4 class="anchored" data-anchor-id="cluster-document-d-belong-to-c_d">Cluster document d belong to: <span class="math inline">\(c_d\)</span></h4>
+<p>two ways to compute:</p>
+<ol type="1">
+<li>Likelihood only</li>
+</ol>
+<p>$$</p>
+<p>c_d = _i p(d|_i)</p>
+<p>$$</p>
+<ol start="2" type="1">
+<li>Likelihood + prior <span class="math inline">\(p(\theta_i)\)</span> (Bayesian)</li>
+</ol>
+<p>$$</p>
+<p>c_d = _i p(d|_i) p(_i)</p>
+<p>$$</p>
+</section>
+<section id="em-algorithm-1" class="level4">
+<h4 class="anchored" data-anchor-id="em-algorithm-1">EM algorithm</h4>
+<ol type="1">
+<li>Initialize <span class="math inline">\(\Lambda\)</span> randomly.</li>
+<li>E-step</li>
+</ol>
+<p>$$</p>
+<p>p^{(n)} = (Z_d=i|d) p^{(n)}(<em>i) </em>{w V} p^{(n)} (w|_i)^{c(w,d)}</p>
+<p>$$</p>
+<ol start="3" type="1">
+<li>M-step</li>
+</ol>
+<p>$$</p>
+<p>p<sup>{(n+1)}(<em>i) </em>{j=1}</sup>N p^{(n)}(z_{d_j}=i|d_j)</p>
+<p>$$</p>
+<p>$$</p>
+<p>p<sup>{(n+1)}(w|<em>i) </em>{j=1}</sup>N c(w,d_j) p^{(n)}(Z_{d_j}=1|d_j)</p>
+<p>$$</p>
+<ol start="4" type="1">
+<li>Iterate E and M-step until the estimate converges.</li>
+</ol>
+</section>
+</section>
+<section id="similarity-based-approaches" class="level3">
+<h3 class="anchored" data-anchor-id="similarity-based-approaches">Similarity-based approaches</h3>
+<section id="hierarchical-agglomerative-clustering-hac" class="level4">
+<h4 class="anchored" data-anchor-id="hierarchical-agglomerative-clustering-hac">Hierarchical Agglomerative Clustering (HAC)</h4>
+<p>This groups similar objects together in a bottom-up fashion.</p>
+<p>Three ways to compute group similarity:</p>
+<ol type="1">
+<li>Single-link algorithm: similarity of the closest pair (loose clusters)</li>
+<li>Complete-link algorithm: similarity of the farthest pair (tight clusters)</li>
+<li>Average-link algorithm: average of similarity of all pairs (insensitive to outliers)</li>
+</ol>
+</section>
+<section id="k-means" class="level4">
+<h4 class="anchored" data-anchor-id="k-means">k-means</h4>
+<ol type="1">
+<li>Select k randomly selected vectors as the centroids of k clusters</li>
+<li>Assign every vector to the closest cluster</li>
+<li>Re-compute the centroid</li>
+<li>Repeat until the similarity-based objective function converges.</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="text-categorization" class="level2">
+<h2 class="anchored" data-anchor-id="text-categorization">Text Categorization</h2>
+<section id="generative-probabilistic-models-1" class="level3">
+<h3 class="anchored" data-anchor-id="generative-probabilistic-models-1">Generative probabilistic models</h3>
+<p>They learn what data looks like in each.</p>
+<p>Attempt to model <span class="math inline">\(p(X,Y)=p(Y)p(X|Y)\)</span> and compute <span class="math inline">\(p(Y|X)\)</span>.</p>
+<p>Often utilize machine learning to create a classifier.</p>
+<section id="e.g.-naive-bayes" class="level4">
+<h4 class="anchored" data-anchor-id="e.g.-naive-bayes">E.g., Naive Bayes</h4>
+<p>Given categories</p>
+<p>$$</p>
+<p>T_1 = {d_{11},…,d_{1N_1}} \ …\ T_k = {d_{k1},…,d_{kN_1}},</p>
+<p>$$</p>
+<p>$$</p>
+<p>p(_i) = |T_i|</p>
+<p>$$</p>
+<p>$$</p>
+<p>p(w|_i) = c(w,T_i)</p>
+<p>$$</p>
+<p>If smoothing to address data sparseness,</p>
+<p>$$</p>
+<p>p(_i) = </p>
+<p>$$</p>
+<p>$$</p>
+<p>p(w|_i) = </p>
+<p>$$</p>
+<p>Then, the comparison of categories for document <span class="math inline">\(d\)</span>, we can apply logistic regression as follows.</p>
+<p>$$</p>
+<p>score(d) = \ = \ = + _{w V} c(w,d) \ = _0 + f_i _i</p>
+<p>$$</p>
+</section>
+</section>
+<section id="discriminative-approaches" class="level3">
+<h3 class="anchored" data-anchor-id="discriminative-approaches">Discriminative approaches</h3>
+<p>They learn what features separate categories.</p>
+<p>Attempt to model <span class="math inline">\(p(Y|X)\)</span> directly.</p>
+<p>E.g., Logistic regression, SVM, kNN</p>
+</section>
+<section id="evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="evaluation">Evaluation</h3>
+<p>$$</p>
+<p> = </p>
+<p>$$</p>
+<p>$$</p>
+<p> = </p>
+<p>$$</p>
+<p>$$</p>
+<p>F_= </p>
+<p>$$</p>
+<p>$$</p>
+<p>F_1 = </p>
+<p>$$</p>
+<ul>
+<li><p>Macro Average over all the categories</p></li>
+<li><p>Macro Average over all the documents</p></li>
+<li><p>Micro-Averaging: precision and recall over all decisions across documents/categories</p></li>
+</ul>
+</section>
+</section>
+<section id="opinion-mining-and-sentiment-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="opinion-mining-and-sentiment-analysis">Opinion mining and sentiment analysis</h2>
+<p>Feature design affects categorization accuracy significantly.</p>
+<section id="ordinal-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="ordinal-logistic-regression">Ordinal Logistic Regression</h3>
+<p>input: document d</p>
+<p>output: discrete rating <span class="math inline">\(r \in {1,2,…,k}\)</span></p>
+<p>model: use <span class="math inline">\(k-1\)</span> classifiers</p>
+<p>$$</p>
+<p>p(r j| X) = </p>
+<p>$$</p>
+<p>The problems is as many parameters as $(k-1)*(M+1)$, although the positive/negative features are similar. To address this issue, we remodel as follows with <span class="math inline">\(M+k-1\)</span> parmeters.</p>
+<p>$$</p>
+<p>p(r j| X) = </p>
+<p>$$</p>
+</section>
+<section id="latent-aspect-rating-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="latent-aspect-rating-analysis">Latent Aspect Rating Analysis</h3>
+<p>Refer to <a href="https://www.cs.virginia.edu/~hw5x/paper/rp166f-wang.pdfhttps://www.cs.virginia.edu/~hw5x/paper/rp166f-wang.pdf">https://www.cs.virginia.edu/~hw5x/paper/rp166f-wang.pdf</a>.</p>
+<ul>
+<li><p>Data</p>
+<ul>
+<li><p>a set of review documents with overall ratings: <span class="math inline">\(C=\{(d,r_d)\}\)</span></p></li>
+<li><p>d is pre-segmented into k review aspect segments (price, food, etc.)</p></li>
+<li><p><span class="math inline">\(c_i(w,d)\)</span> denotes the count of word w in aspect segment i</p></li>
+</ul></li>
+<li><p>Model</p>
+<ul>
+<li><p>predict each aspect rating</p>
+<ul>
+<li><span class="math inline">\(r_i(d) = \sum_{w \in V} c_i(w,d)\beta_{i,w}\)</span></li>
+</ul></li>
+<li><p>Overall rating can be calculated as</p>
+<ul>
+<li><p><span class="math inline">\(r_d \sim N(\sum \alpha_i(d) * r_i(d), \delta^2)\)</span></p></li>
+<li><p>where <span class="math inline">\(\alpha(d) \sim N(\mu, \Sigma)\)</span> (Multivariate Gaussian Prior)</p></li>
+</ul></li>
+<li><p>Maximum Likelihood Estimate</p>
+<ul>
+<li><p><span class="math inline">\(\Lambda = (\beta, \mu, \Sigma, \delta)\)</span></p></li>
+<li><p><span class="math inline">\(\Lambda^* = \arg \max_\Lambda \Pi_{ d\in C} p(r_d|d,\Lambda)\)</span></p></li>
+</ul></li>
+<li><p>Aspect Weights</p>
+<ul>
+<li><span class="math inline">\(\alpha(d)^* = \arg \max_{\alpha(d)} p(\alpha(d)| \mu, \Sigma) * p(r_d | d, \beta, \delta^2, \alpha(d))\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="contextual-text-mining" class="level2">
+<h2 class="anchored" data-anchor-id="contextual-text-mining">Contextual text Mining</h2>
+<section id="contextual-probabilistic-latent-semantic-analysis-cplsa" class="level3">
+<h3 class="anchored" data-anchor-id="contextual-probabilistic-latent-semantic-analysis-cplsa">Contextual Probabilistic Latent Semantic Analysis (CPLSA</h3>
+<ul>
+<li>Explicitly add interesting context variables into a generative model</li>
+</ul>
+</section>
+<section id="network-supervised-topic-modeling-netplsa" class="level3">
+<h3 class="anchored" data-anchor-id="network-supervised-topic-modeling-netplsa">Network Supervised Topic Modeling (NetPLSA)</h3>
+<p>Add network-induced regularizers to the likelihood objective function.</p>
+<p>$$</p>
+<p>^* = _f(p(|), r(,))</p>
+<p>$$</p>
+</section>
+<section id="mining-causal-topics-with-time-series-supervision" class="level3">
+<h3 class="anchored" data-anchor-id="mining-causal-topics-with-time-series-supervision">Mining Causal Topics with Time Series Supervision</h3>
+<ul>
+<li><p>input</p>
+<ul>
+<li><p>Time series</p></li>
+<li><p>Text data</p></li>
+</ul></li>
+<li><p>output</p>
+<ul>
+<li>Topics with strong correlations with the time series (causal topics)</li>
+</ul></li>
+</ul>
+<p>The Granger Causality Test is a statistical hypothesis test for “precedence” (not causality technically).</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,595 @@
+---
+title: "Text Mining"
+execute:
+  cache: true
+---
+
+## Word association
+
+### Basic word relations
+
+-   Paradigmatic (similar context): A & B have paradigmatic relation if they can be substituted for each other.
+
+    -   E.g., cat / dog
+
+-   Syntagmatic (correlated occurences ): A & B have syntagmatic relation if they can be combined with each other.
+
+    -   E.g., cat / sit, car / drive
+
+### Bag of words representation
+
+First, compute a bag of words for a document in Vector Space Model (VSM). (E.g., \["eats", "is", "has"\] = \[4, 10, 5\])
+
+Probability to randomly pick $w_i$ from each document is
+
+$$
+x_i = c(w_i, d1) / |d1|
+$$
+
+$$
+y_i = c(w_i, d2) / |d2|
+$$
+
+where $c$ denotes the count (term frequency) and $|d1|$ denotes total counts of words in d1.
+
+We represent each document as $d1 = (x_1,…,x_N)$ and $d2 = (y_1,…,y_N)$.
+
+Then, similarity between d1 and d2 is defined as
+
+$$
+Sim(d1,d2)=d1 \cdot d2 = \sum_{i=1}^{N} x_i y_i
+$$
+
+We call this **Expected Overlap of Words in Context (EOWC)**.
+
+Moreover, we should
+
+-   penalize too frequent terms: Sublinear transformation of term frequency
+
+    -   $TF(w,d) = \frac{(k+1)c(w,d)}{c(w,d)+k}$
+
+-   reward matching a rare word: IDF term weighting
+
+    -   $IDF(W) = \log [(\text{Total number of docs}+1)/ \text{Doc Frequency}]$
+
+Finally, the similarity is redefined as
+
+$$
+x_i = TF(w_i, d1) / |d1| \\
+y_i = TF(w_i, d2) / |d2| \\
+Sim(d1,d2) = \sum IDF(w_i) x_i y_i
+$$
+
+Also, we can discover syntagmatic relations from the highly weighted terms of
+
+$$
+\text{IDF-weighted d1} = (x_1 \cdot IDF(w_1),...,x_N \cdot IDF(w_N)).
+$$
+
+### Entropy
+
+We can also find sytagmatic relations by Entropy $H(X)$.
+
+$$
+H(X_w) = \sum_{v \in {0,1}} -p(X_w=v) \log_2 p(X_w=v)
+$$
+
+where $0 \log_2 0 = 0$.
+
+$H(X_w)$ is maximized (=1) when $p(X_w=1) = p(x_w=0) = 0.5$ and minimized(=0) when \[$p(X_w=1) = 1$ and $p(x_w=0) = 0$\] or \[$p(X_w=1) = 0$ and $p(x_w=0) = 1$\].
+
+In other words, **high entropy words are harder to predict.**
+
+### Conditional Entropy
+
+Conditional Entropy is defined as
+
+$$
+H(X_{w1} | X_{w2}) = \sum_{u \in {0,1}} [p(X_{w2}=u) H(X_{w1} | X_{w2} = u)]
+$$
+
+$$
+H(X) \geq H(X|Y)
+$$
+
+We can find syntagmatic relations by the following procedures.
+
+1.  Compute conditional entropy for every other word.
+2.  Sort all the candidate words in ascending order of conditional entropy.
+3.  Take the top-ranked candidates (with small conditional entropy) that have potential syntagmatic relations.
+
+Note, $H(X_{w1}|X_{w2})$ and $H(X_{w1}|X_{w3})$ is comparable and has the same upper bound $H(X_{w1})$, while $H(X_{w1}|X_{w2})$ and $H(X_{w3}|X_{w2})$ are not. We have to compare the same probability of $w_1$.
+
+### Mutual Information
+
+Mutual information is defined as
+
+$$
+I(X; Y) = H(X) - H(X|Y) = H(Y) - H(Y|X)
+$$
+
+with the following properties:
+
+-   $I(X;Y) \geq 0$
+
+-   $I(X;Y) = I(Y;X)$
+
+-   $I(X;Y) = 0$ iff X&Y are independent
+
+We can rewrite mutual information using KL-divergence as follows.
+
+$$
+I(X_{w1};X_{w2}) = \sum_{u \in {0,1}} \sum_{v \in {0,1}} p(X_{w1} =u, X_{w2} = v) \log_2 \frac{p(X_{w1} = u, X_{w2} = v)}{p(X_w1 = u) p(X_{w2} = v)}
+$$
+
+We should add pseudo data so that no event has zero counts (Smoothing).
+
+## Topic mining
+
+-   Input
+
+    -   A collection of N text documents $C={d_1,…,d_N}$
+
+    -   Vocabulary set: $V=\{w_1,…,w_M\}$
+
+    -   Number of topics $k$
+
+-   Output
+
+    -   k topics: ${\theta_1,…,\theta_k}$
+
+        -   $\sum_{w \in V} p(w|\theta_i) = 1$
+
+    -   Coverage of topics in each \$d_i\$: $\{\pi_{i1},…,\pi_{ik}\}$
+
+        -   $\pi_{ij}$ denotes the probability of $d_i$ covering topic $\theta_j$
+
+        -   $\sum_{j=1}^k \pi_{ij} = 1$
+
+### Unigram Language Model
+
+$$
+p(w_1 w_2 ... w_n) = p(w_1)p(w_2)...p(w_n)
+$$
+
+### Maximum Likelihood
+
+$$
+\hat{\theta} = \arg \max_\theta P(X|\theta)
+$$
+
+### Bayesian estimation
+
+$$
+\hat{\theta} = \arg \max_\theta P(\theta|X) = \arg \max_\theta P(X|\theta) P(\theta)
+$$
+
+### Mining one topic
+
+#### Data
+
+document \$d=x_1 x_2...x\_{\|d\|}\$, $x_i \in V={w_1,…,w_M}$
+
+#### Model
+
+Unigram LM $\theta_i = p(w_i|\theta)$ where $i=1,…,M$ and $\theta_1+…+\theta_M = 1$
+
+#### Likelihood function
+
+$$
+p(d|\theta) = p(x_1|\theta) \times ... \times p(x_{|d|}|\theta) \\
+ = p(w_1|\theta)^{c(w_1,d)} \times ... \times p(w_M|\theta)^{c(w_M,d)} \\
+ = \Pi_{i=1}^{M} p(w_i|\theta)^{c(w_i,d)} \\
+= \Pi_{i=1}^{M} \theta_i^{c(w_i,d)}
+$$
+
+#### ML estimate (Log-Likelihood)
+
+$$
+\arg \max_{\theta_1,...,\theta_M} \sum_{i=1}^{M} c(w_i,d) \log \theta_i
+$$
+
+Then, we can derive the following solution, using Lagrange multiplier approach.
+
+$$
+\hat{\theta_i} = \frac{c(w_i,d)}{|d|}
+$$
+
+### Mixture of Two Unigram Language Models
+
+This realizes factoring out background words.
+
+#### parameters $\Lambda$
+
+$$
+p(w|\theta_d), p(w|\theta_B), p(\theta_d), p(\theta_B)
+$$
+
+where $p(\theta_d) + p(\theta_B) = 1$
+
+#### Likelihood function
+
+$$
+p(d|\Lambda) = \Pi_{i-1}^{M} [p(\theta_d) p(w_i|\theta_d) + p(\theta_B) p(w_i|\theta_B)]^{c(w,d)}
+$$
+
+#### ML Estimate
+
+$$
+\Lambda^* = \arg \max_\Lambda p(d|\Lambda)
+$$
+
+where
+
+$$
+\sum p(w_i|\theta_d) = \sum p(w_i|\theta_B)=1 \\
+p(\theta_d)+p(\theta_B)=1
+$$
+
+#### The Expectation-Maximization (EM) Algorithm
+
+1.  Initialization
+
+Initialize $p(w|\theta_d)$ with random values.
+
+2.  E-step
+
+$$
+p^{(n)}(z=0|w) = \frac{p(\theta_d) p^{(n)}(w|\theta_d)}{p(\theta_d) p^{(n)}(w|\theta_d) + p(\theta_B)p(w|\theta_B)}
+$$
+
+where $z$ is a hidden variable and $z=0$ and $z=1$ denote a word comes from $\theta_d$ and $\theta_B$ respectively.
+
+3.  M-step
+
+$$
+p^{(n+1)}(w|\theta_d) = \frac{c(w,d) p^{(n)}(z=0|w)}{\sum_{w' \in V}c(w',d)p^{(n)}(z=0|w')}
+$$
+
+4.  Iterate E-step and M-step until the likelihood **converges** **to a local maximum**.
+
+### Probabilistic Latent Semantic Analysis (PLSA)
+
+#### Likelihood Functions
+
+$$
+p_d(w) = \lambda_B \cdot p(w|\theta_B) + (1-\lambda_B)\sum_{j=1}^k \pi_{d,j} p(w|\theta_j)
+$$
+
+$$
+\log p(d) = \sum_{w \in V} c(w,d) \log[\lambda_B \cdot p(w|\theta_B) + (1-\lambda_B)\sum_{j=1}^k \pi_{d,j}p(w|\theta_j)]
+$$
+
+$$
+\log p(C|\Lambda) = \sum_{d \in C} \sum_{w \in V} c(w,d) \log[\lambda_B \cdot p(w|\theta_B) + (1-\lambda_B)\sum_{j=1}^k \pi_{d,j}p(w|\theta_j)]
+$$
+
+#### EM algorithm
+
+Hidden variable (topic indicator)
+
+$$
+z_{d,w} \in {B,1,2,...,k}
+$$
+
+##### Initialization
+
+Initialize all unknown parameters randomly.
+
+##### E-step
+
+Probability that w in doc d is generated from topic $\theta_j$:$$
+p(Z_{d,w} = j) = \frac{\pi^{(n)}_{d,j} p^{(n)}(w|\theta_j)}{\sum_{j'=1}^k \pi^{(n)}_{d,j'} p^{(n)}(w|\theta_{j'})}
+$$
+
+Probability that w in doc d is generated from background $\theta_B$:
+
+$$
+p(Z_{d,w} = B) = \frac{\lambda_B p(w|\theta_B)}{\lambda_B \cdot p(w|\theta_B) + (1-\lambda_B)\sum_{j=1}^k \pi^{(n)}_{d,j} p^{(n)}(w|\theta_{j})}
+$$
+
+##### M-step
+
+Re-estimated probability of doc d covering topic $\theta_j$:
+
+$$
+\pi^{(n+1)}_{d,j} = \frac{\sum_{w \in V}c(w,d)(1-p(z_{d,w}=B))p(z_{d,w}=j)}{\sum_{j'}\sum_{w \in V}c(w,d)(1-p(z_{d,w}=B))p(z_{d,w}=j')}
+$$
+
+Re-estimated probability of word w for topic $\theta_j$:
+
+$$
+p^{(n+1)}(w|\theta_j) = \frac{\sum_{d \in C}c(w,d)(1-p(z_{d,w}=B))p(z_{d,w}=j)}{\sum_{w' \in V}\sum_{d \in C}c(w',d)(1-p(z_{d,w'}=B))p(z_{d,w'}=j)}
+$$
+
+### PLSA with prior knowledge (User-controlled PLSA)
+
+Maximum a Posteriori (MAP) Estimate:
+
+After setting $\Lambda$ to encode all kinds of preferences and constraints, compute the following maximum likelihood estimate, using an EM algorithm:
+
+$$
+\Lambda^* = \arg \max_\Lambda p(\Lambda) p(Data| \Lambda)
+$$
+
+E.g., given prior of $p(w|\theta_{j'})$, one equation in M-step changes to
+
+$$
+p^{(n+1)}(w|\theta_j) = \frac{\sum_{d \in C}c(w,d)(1-p(z_{d,w}=B))p(z_{d,w}=j) + \mu p(w|\theta_{j'})}{\sum_{w' \in V}\sum_{d \in C}c(w',d)(1-p(z_{d,w'}=B))p(z_{d,w'}=j) + \mu}
+$$
+
+### PLSA as a generative model (Latent Dirichlet Allocation)
+
+PLSA has the following deficiencies:
+
+-   not a generative model
+
+-   many parameters
+
+To address these issues, LDA imposes a prior on $\pi_d = (\pi_{d,1},...,\pi_{d,k})$ and $\theta_i = (p(w_1|\theta_i),...,p(w_M|\theta_i))$ as follows.
+
+$$
+p(\pi_d) = \text{Dirichlet}(\alpha),
+$$
+
+where $\alpha = (\alpha_1,…,\alpha_k)$.
+
+$$
+p(\theta_i) = \text{Dirichlet}(\beta)
+$$
+
+where $\beta=(\beta_1,…,\beta_M)$.
+
+Then, parameters can be estimated using ML estimator:
+
+$$
+(\alpha,\beta) = \arg \max_{\alpha,\beta} \log p(C| \alpha, \beta)
+$$
+
+## Text clustering
+
+### Generative probabilistic models
+
+#### Data
+
+a collection of documents $C={d_1,…,d_N}$
+
+#### Model
+
+mixture of k unigram LMs: $\Lambda = ({\theta_i}; {p(\theta_i)})$
+
+#### Likelihood
+
+$$
+p(d|\Lambda) = \sum_{i=1}^k [p(\theta_i) \Pi_{j=1}^{|d|} p(x_j|\theta_i)] \\
+= \sum_{i=1}^k [p(\theta_i) \Pi_{w \in V} p(w|\theta_i)^{c(w,d)}]
+$$
+
+$$
+p(C|\Lambda) = \Pi_{j=1}^N p(d_j|\Lambda)
+$$
+
+#### Maximum Likelihood estimate
+
+$$
+\Lambda^* = \arg \max_\Lambda p(d|\Lambda)
+$$
+
+#### Cluster document d belong to: $c_d$
+
+two ways to compute:
+
+1.  Likelihood only
+
+$$
+c_d = \arg \max_i p(d|\theta_i)
+$$
+
+2.  Likelihood + prior $p(\theta_i)$ (Bayesian)
+
+$$
+c_d = \arg \max_i p(d|\theta_i) p(\theta_i)
+$$
+
+#### EM algorithm
+
+1.  Initialize $\Lambda$ randomly.
+2.  E-step
+
+$$
+p^{(n)} = (Z_d=i|d) \propto p^{(n)}(\theta_i) \Pi_{w \in V} p^{(n)} (w|\theta_i)^{c(w,d)}
+$$
+
+3.  M-step
+
+$$
+p^{(n+1)}(\theta_i) \propto \sum_{j=1}^N p^{(n)}(z_{d_j}=i|d_j)
+$$
+
+$$
+p^{(n+1)}(w|\theta_i) \propto \sum_{j=1}^N c(w,d_j) p^{(n)}(Z_{d_j}=1|d_j)
+$$
+
+4.  Iterate E and M-step until the estimate converges.
+
+### Similarity-based approaches
+
+#### Hierarchical Agglomerative Clustering (HAC)
+
+This groups similar objects together in a bottom-up fashion.
+
+Three ways to compute group similarity:
+
+1.  Single-link algorithm: similarity of the closest pair (loose clusters)
+2.  Complete-link algorithm: similarity of the farthest pair (tight clusters)
+3.  Average-link algorithm: average of similarity of all pairs (insensitive to outliers)
+
+#### k-means
+
+1.  Select k randomly selected vectors as the centroids of k clusters
+2.  Assign every vector to the closest cluster
+3.  Re-compute the centroid
+4.  Repeat until the similarity-based objective function converges.
+
+## Text Categorization
+
+### Generative probabilistic models
+
+They learn what data looks like in each.
+
+Attempt to model $p(X,Y)=p(Y)p(X|Y)$ and compute $p(Y|X)$.
+
+Often utilize machine learning to create a classifier.
+
+#### E.g., Naive Bayes
+
+Given categories
+
+$$
+T_1 = {d_{11},...,d_{1N_1}} \\
+...\\
+T_k = {d_{k1},...,d_{kN_1}},
+$$
+
+$$
+p(\theta_i) = \frac{N_i}{\sum_{j=1}^k N_j} \propto |T_i|
+$$
+
+$$
+p(w|\theta_i) = \frac{\sum_{j=1}^{N_i}c(w,d_{ij})}{\sum_{w' \in V} \sum_{j=1}^{N_i} c(w',d_{ij})} \propto c(w,T_i)
+$$
+
+If smoothing to address data sparseness,
+
+$$
+p(\theta_i) = \frac{N_i + \delta}{\sum_{j=1}^k N_j + k \delta}
+$$
+
+$$
+p(w|\theta_i) = \frac{\sum_{j=1}^{N_i}c(w,d_{ij}) + \mu p(w|\theta_B)}{\sum_{w' \in V} \sum_{j=1}^{N_i} c(w',d_{ij}) + \mu}
+$$
+
+Then, the comparison of categories for document $d$, we can apply logistic regression as follows.
+
+$$
+score(d) = \log \frac{p(\theta_1|d)}{p(\theta_2|d)} \\
+= \log \frac{p(\theta_1) \Pi_{w \in V} p(w|\theta_1)^{c(w,d)}}{p(\theta_2) \Pi_{w \in V} p(w|\theta_2)^{c(w,d)}} \\
+= \log \frac{p(\theta_1)}{p(\theta_2)} + \sum_{w \in V} c(w,d) \log \frac{p(w|\theta_1)}{p(w|\theta_2)} \\
+= \beta_0 + \sum f_i \beta_i
+$$
+
+### Discriminative approaches
+
+They learn what features separate categories.
+
+Attempt to model $p(Y|X)$ directly.
+
+E.g., Logistic regression, SVM, kNN
+
+### Evaluation
+
+$$
+\text{Precision} = \frac{TP}{TP+FP}
+$$
+
+$$
+\text{Recall} = \frac{TP}{TP+FN}
+$$
+
+$$
+F_\beta = \frac{(\beta^2 + 1)P*R}{\beta^2P+R}
+$$
+
+$$
+F_1 = \frac{2PR}{P+R}
+$$
+
+-   Macro Average over all the categories
+
+-   Macro Average over all the documents
+
+-   Micro-Averaging: precision and recall over all decisions across documents/categories
+
+## Opinion mining and sentiment analysis
+
+Feature design affects categorization accuracy significantly.
+
+### Ordinal Logistic Regression
+
+input: document d
+
+output: discrete rating $r \in {1,2,…,k}$
+
+model: use $k-1$ classifiers
+
+$$
+p(r \geq j| X) = \frac{e^{\alpha_j + \sum x_i \beta_{ji}}}{e^{\alpha_j + \sum x_i \beta_{ji}} + 1}
+$$
+
+The problems is as many parameters as \$(k-1)\*(M+1)\$, although the positive/negative features are similar. To address this issue, we remodel as follows with $M+k-1$ parmeters.
+
+$$
+p(r \geq j| X) = \frac{e^{\alpha_j + \sum x_i \beta_{i}}}{e^{\alpha_j + \sum x_i \beta_{i}} + 1}
+$$
+
+### Latent Aspect Rating Analysis
+
+Refer to [https://www.cs.virginia.edu/\~hw5x/paper/rp166f-wang.pdf](https://www.cs.virginia.edu/~hw5x/paper/rp166f-wang.pdfhttps://www.cs.virginia.edu/~hw5x/paper/rp166f-wang.pdf).
+
+-   Data
+
+    -   a set of review documents with overall ratings: $C=\{(d,r_d)\}$
+
+    -   d is pre-segmented into k review aspect segments (price, food, etc.)
+
+    -   $c_i(w,d)$ denotes the count of word w in aspect segment i
+
+-   Model
+
+    -   predict each aspect rating
+
+        -   $r_i(d) = \sum_{w \in V} c_i(w,d)\beta_{i,w}$
+
+    -   Overall rating can be calculated as
+
+        -   $r_d \sim N(\sum \alpha_i(d) * r_i(d), \delta^2)$
+
+        -   where $\alpha(d) \sim N(\mu, \Sigma)$ (Multivariate Gaussian Prior)
+
+    -   Maximum Likelihood Estimate
+
+        -   $\Lambda = (\beta, \mu, \Sigma, \delta)$
+
+        -   $\Lambda^* = \arg \max_\Lambda \Pi_{ d\in C} p(r_d|d,\Lambda)$
+
+    -   Aspect Weights
+
+        -   $\alpha(d)^* = \arg \max_{\alpha(d)} p(\alpha(d)| \mu, \Sigma) * p(r_d | d, \beta, \delta^2, \alpha(d))$
+
+## Contextual text Mining
+
+### Contextual Probabilistic Latent Semantic Analysis (CPLSA
+
+-   Explicitly add interesting context variables into a generative model
+
+### Network Supervised Topic Modeling (NetPLSA)
+
+Add network-induced regularizers to the likelihood objective function.
+
+$$
+\Lambda^* = \arg \max_\Lambda f(p(\text{TextData}|\Lambda), r(\Lambda,\text{Network}))
+$$
+
+### Mining Causal Topics with Time Series Supervision
+
+-   input
+
+    -   Time series
+
+    -   Text data
+
+-   output
+
+    -   Topics with strong correlations with the time series (causal topics)
+
+The Granger Causality Test is a statistical hypothesis test for "precedence" (not causality technically).

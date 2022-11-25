@@ -21,6 +21,7 @@ website:
     contents:
       - index.qmd
       - text_retrieval.qmd
+      - text_mining.qmd
 
 format:
   html:
