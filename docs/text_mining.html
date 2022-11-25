@@ -626,6 +626,51 @@ score(d) = \log \frac{p(\theta_1|d)}{p(\theta_2|d)} \\
 = \log \frac{p(\theta_1)}{p(\theta_2)} + \sum_{w \in V} c(w,d) \log \frac{p(w|\theta_1)}{p(w|\theta_2)} \\
 = \beta_0 + \sum f_i \beta_i
 \]</span></p>
+<p>E.g.,</p>
+<p>Given</p>
+<p>Category 1 T1:{d1=(w1w1w1w1w3w3)}</p>
+<p>Category 2 T2:{d2=(w1w1w2w2w3w4)}</p>
+<p>d3=(w3,w4),</p>
+<p>then,</p>
+<p><span class="math display">\[
+p(\theta_1) = 1/2
+\]</span></p>
+<p><span class="math display">\[
+p(\theta_2) = 1/2
+\]</span></p>
+<p><span class="math display">\[
+p(d3|\theta_1) = 2/6 * 0/6 =  0
+\]</span></p>
+<p><span class="math display">\[
+p(d3|\theta_2) = 1/6 * 1/6 = 1/36
+\]</span></p>
+<p>If using Laplace smoothing,</p>
+<p><span class="math display">\[
+|V| = 4
+\]</span></p>
+<p><span class="math display">\[
+p(w3|\theta_1) = 3/10
+\]</span></p>
+<p><span class="math display">\[
+p(w4|\theta_1) = 1/10
+\]</span></p>
+<p><span class="math display">\[
+p(w3|\theta_2) = 2/10
+\]</span></p>
+<p><span class="math display">\[
+p(w4|\theta_2) = 2/10
+\]</span></p>
+<p><span class="math display">\[
+p(d3|\theta_1) = 3/10 * 1/10
+\]</span></p>
+<p><span class="math display">\[
+p(d3|\theta_2) = 2/10 * 2/10
+\]</span></p>
+<p>The Naive Bayes predict (the posterior probability) is</p>
+<p><span class="math display">\[
+p(\theta_2|d3) = \frac{p(d3|\theta_2)p(\theta_2)}{p(d3)} \\
+= \frac{p(d3|\theta_2)p(\theta_2)}{p(d3|\theta_1)p(\theta_1) + p(d3|\theta_2)p(\theta_2)}
+\]</span></p>
 </section>
 </section>
 <section id="discriminative-approaches" class="level3">
