@@ -635,7 +635,7 @@ Refer to [https://www.cs.virginia.edu/\~hw5x/paper/rp166f-wang.pdf](https://www.
 
 ## Contextual text Mining
 
-### Contextual Probabilistic Latent Semantic Analysis (CPLSA
+### Contextual Probabilistic Latent Semantic Analysis (CPLSA)
 
 -   Explicitly add interesting context variables into a generative model
 

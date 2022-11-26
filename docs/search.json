@@ -39,7 +39,7 @@
     "href": "text_mining.html#contextual-text-mining",
     "title": "Text Mining",
     "section": "Contextual text Mining",
-    "text": "Contextual text Mining\n\nContextual Probabilistic Latent Semantic Analysis (CPLSA\n\nExplicitly add interesting context variables into a generative model\n\n\n\nNetwork Supervised Topic Modeling (NetPLSA)\nAdd network-induced regularizers to the likelihood objective function.\n\\[\n\\Lambda^* = \\arg \\max_\\Lambda f(p(\\text{TextData}|\\Lambda), r(\\Lambda,\\text{Network}))\n\\]\n\n\nMining Causal Topics with Time Series Supervision\n\ninput\n\nTime series\nText data\n\noutput\n\nTopics with strong correlations with the time series (causal topics)\n\n\nThe Granger Causality Test is a statistical hypothesis test for “precedence” (not causality technically)."
+    "text": "Contextual text Mining\n\nContextual Probabilistic Latent Semantic Analysis (CPLSA)\n\nExplicitly add interesting context variables into a generative model\n\n\n\nNetwork Supervised Topic Modeling (NetPLSA)\nAdd network-induced regularizers to the likelihood objective function.\n\\[\n\\Lambda^* = \\arg \\max_\\Lambda f(p(\\text{TextData}|\\Lambda), r(\\Lambda,\\text{Network}))\n\\]\n\n\nMining Causal Topics with Time Series Supervision\n\ninput\n\nTime series\nText data\n\noutput\n\nTopics with strong correlations with the time series (causal topics)\n\n\nThe Granger Causality Test is a statistical hypothesis test for “precedence” (not causality technically)."
   },
   {
     "objectID": "index.html",
